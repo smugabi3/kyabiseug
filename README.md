@@ -1,5 +1,5 @@
 # KyabiseUG
-
+ 
 Uganda's Voice, The World's Story — a full-stack news site covering local Ugandan news, international affairs, sports, health, tech, gospel, and entertainment. Built with Next.js, Prisma/SQLite, and a role-based newsroom CMS.
 
 ## Stack
