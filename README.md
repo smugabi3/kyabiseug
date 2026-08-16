@@ -1,6 +1,6 @@
 # KyabiseUG
 
-Uganda's Voice, The World's Story — a full-stack news site covering local Ugandan news, international affairs, sports, health, tech, gospel, and entertainment. Built with Next.js, Prisma/SQLite, and a role-based newsroom CMS.
+Uganda's Voice, The World's Story — a full-stack news site covering local Ugandan news, international affairs, sports, health, tech, gospel, and entertainment. Built with Next.js, Prisma/PostgreSQL, and a role-based newsroom CMS.
 
 ## Stack
 
@@ -12,8 +12,10 @@ Uganda's Voice, The World's Story — a full-stack news site covering local Ugan
 ## Getting started
 
 You need a PostgreSQL database. For local development you can run one in Docker
-(`docker run --name kyabiseug-db -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres`)
-or point `DATABASE_URL` at any hosted Postgres instance.
+(`docker run --name kyabiseug-db -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres`),
+point `DATABASE_URL` at any hosted Postgres instance, or — if you don't have Docker —
+run `npm run db:local` in its own terminal to spin up a self-contained local Postgres
+(no install required; data persists in `.local-pg-data/`).
 
 ```bash
 npm install              # also runs `prisma generate` via postinstall
@@ -81,6 +83,7 @@ Authorization is enforced server-side on every request (not just hidden in the U
 - `npm run dev` — start the dev server
 - `npm run build` / `npm run start` — production build and serve
 - `npm run lint` — ESLint
+- `npm run db:local` — run a self-contained local Postgres instance (no Docker needed)
 - `npm run db:seed` — seed categories and sample articles (safe to re-run)
 - `npm run db:studio` — open Prisma Studio
 - `npm run admin:create` — create/update the super admin account from env vars
