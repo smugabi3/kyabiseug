@@ -16,15 +16,15 @@ export function SearchBox({ className, autoFocus }: { className?: string; autoFo
         if (q.trim()) router.push(`/search?q=${encodeURIComponent(q.trim())}`);
       }}
     >
-      <div className="flex items-center gap-2 rounded-full border border-border bg-surface-alt px-3 py-1.5 focus-within:border-brand">
-        <Search className="h-4 w-4 shrink-0 text-ink-soft" />
+      <div className="border-border bg-surface-alt focus-within:border-brand flex items-center gap-2 rounded-full border px-3 py-1.5">
+        <Search className="text-ink-soft h-4 w-4 shrink-0" />
         <input
           type="search"
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Search KyabiseUG..."
           autoFocus={autoFocus}
-          className="w-full bg-transparent text-sm text-ink outline-none placeholder:text-ink-soft"
+          className="text-ink placeholder:text-ink-soft w-full bg-transparent text-sm outline-none"
         />
       </div>
     </form>

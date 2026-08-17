@@ -41,7 +41,7 @@ const local: SeedArticle[] = [
     dek: "The 77km tolled highway is now more than 90 percent complete, with officials promising it will cut travel time between the two cities to under an hour.",
     content: p(
       "The long-awaited Kampala–Jinja Expressway is entering its final construction phase, with the Uganda National Roads Authority (UNRA) confirming that more than 90 percent of civil works have been completed.",
-      "Speaking at a site inspection in Mukono on Tuesday, UNRA executive director Allen Kagina said the remaining work involves surface asphalting, toll plaza installation and safety signage. \"Barring any unforeseen delays, motorists should be using this road by the first quarter of next year,\" she told reporters.",
+      'Speaking at a site inspection in Mukono on Tuesday, UNRA executive director Allen Kagina said the remaining work involves surface asphalting, toll plaza installation and safety signage. "Barring any unforeseen delays, motorists should be using this road by the first quarter of next year," she told reporters.',
       "The four-lane expressway is expected to reduce travel time between Kampala and Jinja from roughly two hours to under 45 minutes, easing pressure on the congested Northern Bypass and Jinja Road corridor that currently handles over 18,000 vehicles a day.",
       "Local leaders in Mukono and Buikwe districts have welcomed the project, though some traders along the old route have raised concerns about lost business once traffic shifts to the new highway. UNRA says a compensation and resettlement review is ongoing for the last remaining affected households."
     ),
@@ -60,7 +60,7 @@ const local: SeedArticle[] = [
     content: p(
       "Parliament on Thursday passed the Land (Amendment) Bill 2026, paving the way for a fully digital national land registry that officials say will curb the rampant fraud that has plagued Uganda's land sector for decades.",
       "Under the new law, all land transfers, mortgages and title searches must be conducted through the Ministry of Lands' online portal, with physical land files to be phased out within three years.",
-      "Lands Minister Judith Nabakooba told the House the reform was long overdue. \"Too many families have lost land to forged titles and multiple sales of the same plot. A digital, tamper-evident registry closes that loophole,\" she said.",
+      'Lands Minister Judith Nabakooba told the House the reform was long overdue. "Too many families have lost land to forged titles and multiple sales of the same plot. A digital, tamper-evident registry closes that loophole," she said.',
       "Civil society groups cautiously welcomed the bill but called for safeguards to ensure rural landholders without reliable internet access are not left behind during the transition."
     ),
     author: "David Okello",
@@ -76,7 +76,7 @@ const local: SeedArticle[] = [
     content: p(
       "Hundreds of families in Kasese District have been displaced after the Nyamwamba River burst its banks following days of heavy rainfall over the Rwenzori Mountains.",
       "The Uganda Red Cross Society said at least 340 households in Kilembe and Bulembia divisions had been affected, with emergency shelters set up at two primary schools.",
-      "\"We are appealing for blankets, clean water and sanitary supplies as the number of displaced people continues to rise,\" said Red Cross spokesperson Irene Nakasiita.",
+      '"We are appealing for blankets, clean water and sanitary supplies as the number of displaced people continues to rise," said Red Cross spokesperson Irene Nakasiita.',
       "District officials have renewed calls for the completion of a long-delayed river training project meant to control seasonal flooding in the area."
     ),
     author: "Grace Auma",
@@ -92,7 +92,7 @@ const local: SeedArticle[] = [
     content: p(
       "The Kampala Capital City Authority (KCCA) has launched a fresh registration drive for boda boda riders, targeting an estimated 250,000 motorcycles operating in the city.",
       "Riders will be issued digital identification linked to their number plates, which authorities say will help track accidents, enforce safety standards and eventually support a planned rider insurance scheme.",
-      "KCCA's Director of Gender, Community Services and Production, Andrew Kitaka, said the registration is free for the first month. \"We want every rider captured in the system by the end of the year,\" he said.",
+      'KCCA\'s Director of Gender, Community Services and Production, Andrew Kitaka, said the registration is free for the first month. "We want every rider captured in the system by the end of the year," he said.',
       "Boda boda associations have generally backed the move, though some riders say they fear it could be used to justify new fees down the line."
     ),
     author: "Peter Ssemwogerere",
@@ -108,7 +108,7 @@ const local: SeedArticle[] = [
     content: p(
       "Mbarara City will host the Western Uganda Regional Trade Expo next month, bringing together manufacturers, agro-processors and cross-border traders from Uganda, Rwanda and eastern DR Congo.",
       "The five-day event, organised with the Uganda Manufacturers Association, is expected to draw more than 300 exhibitors and thousands of visitors to the city's showgrounds.",
-      "\"This expo is about connecting western Uganda's producers directly to regional markets,\" said UMA regional coordinator Patience Kembabazi.",
+      '"This expo is about connecting western Uganda\'s producers directly to regional markets," said UMA regional coordinator Patience Kembabazi.',
       "Local hoteliers say bookings are already filling up, with the city's business community hoping the event becomes an annual fixture."
     ),
     author: "Ritah Namutebi",
@@ -124,7 +124,7 @@ const local: SeedArticle[] = [
     content: p(
       "Residents in several Wakiso District suburbs have gone without piped water for two days following a burst on a major distribution main near Kira.",
       "The National Water and Sewerage Corporation (NWSC) said emergency repair crews were on site and expected to restore full supply within 48 hours.",
-      "\"We apologise for the inconvenience and have deployed water bowsers to the worst-affected areas in the meantime,\" NWSC said in a statement.",
+      '"We apologise for the inconvenience and have deployed water bowsers to the worst-affected areas in the meantime," NWSC said in a statement.',
       "The affected areas include parts of Kira, Namugongo and Bweyogerere, home to tens of thousands of households and small businesses."
     ),
     author: "Brian Kato",
@@ -158,7 +158,7 @@ const international: SeedArticle[] = [
     dek: "Finance ministers from the six-nation bloc reviewed convergence targets needed before a common currency can be introduced.",
     content: p(
       "Finance ministers from the East African Community met in Arusha this week to assess progress toward a proposed EAC single currency, a project first outlined more than a decade ago.",
-      "A joint communique said member states have made \"uneven progress\" on the macroeconomic convergence criteria, including inflation and public debt targets, needed before a monetary union can proceed.",
+      'A joint communique said member states have made "uneven progress" on the macroeconomic convergence criteria, including inflation and public debt targets, needed before a monetary union can proceed.',
       "Uganda's central bank governor said the country remains broadly on track but flagged the need for tighter fiscal coordination across the bloc.",
       "Officials did not set a new target date for the currency's introduction, with the original 2024 timeline having already lapsed."
     ),
@@ -174,7 +174,7 @@ const international: SeedArticle[] = [
     content: p(
       "The United Nations has warned that food insecurity across the Horn of Africa is worsening, with an estimated 23 million people facing acute hunger amid drought, conflict and economic shocks.",
       "The World Food Programme said funding shortfalls have forced ration cuts in several refugee settlements, including those hosting people who have fled into Uganda from South Sudan and DR Congo.",
-      "\"Without urgent new funding, we risk a repeat of the severe crises we saw earlier this decade,\" a WFP regional spokesperson said.",
+      '"Without urgent new funding, we risk a repeat of the severe crises we saw earlier this decade," a WFP regional spokesperson said.',
       "Uganda currently hosts over 1.6 million refugees, one of the largest refugee populations in Africa."
     ),
     author: "Diana Nabukenya",
@@ -189,8 +189,8 @@ const international: SeedArticle[] = [
     content: p(
       "Senior trade officials from the United States and China resumed negotiations in Geneva this week, aiming to defuse tensions that have unsettled global markets for much of the year.",
       "Analysts say the talks are focused on tariff schedules and export controls on semiconductor technology, issues that have had ripple effects on supply chains worldwide, including commodity exporters in Africa.",
-      "\"Any de-escalation would be welcome news for emerging markets that have felt the knock-on effects of this trade dispute,\" said one Kampala-based economic analyst.",
-      "No joint statement had been issued as of Thursday, though both sides described the discussions as \"constructive.\""
+      '"Any de-escalation would be welcome news for emerging markets that have felt the knock-on effects of this trade dispute," said one Kampala-based economic analyst.',
+      'No joint statement had been issued as of Thursday, though both sides described the discussions as "constructive."'
     ),
     author: "Emmanuel Byaruhanga",
     tags: "United States,China,trade,markets",
@@ -219,7 +219,7 @@ const international: SeedArticle[] = [
     content: p(
       "Delegates from nearly 190 countries are gathering this week for the latest round of UN climate talks, amid fresh data showing most major economies are off track to meet their 2030 emissions targets.",
       "African negotiators, including Uganda's delegation, are expected to press wealthier nations on long-promised climate adaptation financing, which has consistently fallen short of pledged amounts.",
-      "\"Communities here are already living with the impact of erratic rainfall and prolonged droughts. The financing gap is not abstract to us,\" said a member of Uganda's negotiating team.",
+      '"Communities here are already living with the impact of erratic rainfall and prolonged droughts. The financing gap is not abstract to us," said a member of Uganda\'s negotiating team.',
       "A final agreement on new financing commitments is expected before the summit closes next week."
     ),
     author: "Grace Auma",
@@ -237,7 +237,7 @@ const sports: SeedArticle[] = [
     content: p(
       "The Uganda Cranes secured a crucial 2-1 victory in a packed Mandela National Stadium on Tuesday night, with captain Milton Karisa scoring a dramatic 92nd-minute winner to keep the country's World Cup qualification hopes firmly on track.",
       "The result lifts Uganda to second in their qualifying group, level on points with the leaders with two matches remaining.",
-      "\"This team has heart. We never stopped believing, even when we went behind,\" head coach Paul Put said after the match.",
+      '"This team has heart. We never stopped believing, even when we went behind," head coach Paul Put said after the match.',
       "Fans flooded the streets of Kampala in celebration late into the night, with the next qualifier away from home set for next month."
     ),
     author: "Peter Ssemwogerere",
@@ -255,7 +255,7 @@ const sports: SeedArticle[] = [
     dek: "The Olympic and world champion says he is in the best shape of his career heading into the season-ending meet in Brussels.",
     content: p(
       "Olympic 10,000m champion Joshua Cheptegei says he is targeting another personal best as he heads into the Diamond League finale in Brussels this weekend.",
-      "\"Training has gone exactly to plan this season. I believe there's more time to take off,\" Cheptegei told reporters ahead of the meet.",
+      '"Training has gone exactly to plan this season. I believe there\'s more time to take off," Cheptegei told reporters ahead of the meet.',
       "The Ugandan star has dominated long-distance running for much of the past five years and remains a strong favourite heading into the final Diamond League meeting of the year.",
       "A strong showing would cap what has already been a record-breaking season for Ugandan athletics on the global stage."
     ),
@@ -272,7 +272,7 @@ const sports: SeedArticle[] = [
     content: p(
       "KCCA FC has completed the signing of highly-rated 17-year-old striker Ronald Kirya from a local football academy, ahead of the new Ugandan Premier League season.",
       "Kirya finished as the top scorer in the national youth league last season with 21 goals in 18 matches.",
-      "\"He has raw talent and a hunger to learn. We believe he can grow into a real asset for this club,\" said KCCA FC head coach.",
+      '"He has raw talent and a hunger to learn. We believe he can grow into a real asset for this club," said KCCA FC head coach.',
       "The club's pre-season training camp begins next week as they prepare for a title challenge."
     ),
     author: "Brian Kato",
@@ -287,7 +287,7 @@ const sports: SeedArticle[] = [
     content: p(
       "Uganda's national netball team, the She Cranes, have named their squad for a two-week training camp as they prepare to defend their African Netball Cup title.",
       "Head coach Fred Mugerwa said the squad blends experienced internationals with several uncapped players from the domestic league.",
-      "\"Defending a title is always harder than winning it the first time. We are taking nothing for granted,\" Mugerwa said.",
+      '"Defending a title is always harder than winning it the first time. We are taking nothing for granted," Mugerwa said.',
       "The She Cranes have been one of Uganda's most consistent international teams in recent years, regularly ranking among the top sides in Africa."
     ),
     author: "Diana Nabukenya",
@@ -302,7 +302,7 @@ const sports: SeedArticle[] = [
     content: p(
       "Uganda's national rugby sevens side, the Rugby Cranes, secured a historic 24-19 away win over Kenya's Simbas, their first victory in Nairobi in more than ten years.",
       "The result is a major boost for Ugandan rugby, which has invested heavily in youth development programmes over the past five years.",
-      "\"This win belongs to every young player who has come through our academy system,\" said team captain after the match.",
+      '"This win belongs to every young player who has come through our academy system," said team captain after the match.',
       "The Rugby Cranes now turn their attention to continental sevens qualifiers later this year."
     ),
     author: "Emmanuel Byaruhanga",
@@ -316,7 +316,7 @@ const sports: SeedArticle[] = [
     dek: "Kampala-born welterweight contender has been confirmed as the mandatory challenger for next year's title fight.",
     content: p(
       "Kampala-born welterweight boxer Ismail Kiwanuka has been confirmed as the mandatory challenger for the Commonwealth welterweight title, with the bout set for Manchester next spring.",
-      "Kiwanuka, unbeaten in his last nine fights, said the opportunity was \"a dream come true\" after years of competing on the domestic and regional circuit.",
+      'Kiwanuka, unbeaten in his last nine fights, said the opportunity was "a dream come true" after years of competing on the domestic and regional circuit.',
       "\"I've worked for this since I was a kid training in Katwe. Now it's here and I intend to bring that belt home,\" he said.",
       "Uganda Boxing Federation officials say the fight could be a major moment for the sport's profile in the country."
     ),
@@ -335,7 +335,7 @@ const health: SeedArticle[] = [
     content: p(
       "The Ministry of Health has launched a nationwide rollout of the malaria vaccine, expanding a pilot programme that began in select districts two years ago to cover children under five across all 87 target districts.",
       "Health Minister Dr Jane Ruth Aceng said the vaccine, used alongside bed nets and indoor spraying, is expected to significantly reduce severe malaria cases among young children.",
-      "\"Malaria remains one of the leading causes of death among children under five in Uganda. This vaccine is a critical additional tool, not a replacement for existing prevention methods,\" she said.",
+      '"Malaria remains one of the leading causes of death among children under five in Uganda. This vaccine is a critical additional tool, not a replacement for existing prevention methods," she said.',
       "The ministry says over 2 million doses have been secured for this phase of the campaign, with support from international health partners."
     ),
     author: "Josephine Achieng",
@@ -351,7 +351,7 @@ const health: SeedArticle[] = [
     content: p(
       "Doctors at several major hospitals in Kampala are warning of a steady rise in non-communicable diseases such as diabetes, hypertension and certain cancers, with urban lifestyle changes cited as a key driver.",
       "Data reviewed from Mulago National Referral Hospital shows outpatient visits related to hypertension have nearly doubled over the past five years.",
-      "\"We are seeing patients in their 30s with conditions we used to associate mainly with much older age groups,\" said a senior physician at the hospital.",
+      '"We are seeing patients in their 30s with conditions we used to associate mainly with much older age groups," said a senior physician at the hospital.',
       "Health officials are calling for expanded screening programmes and public awareness campaigns around diet and physical activity."
     ),
     author: "David Okello",
@@ -366,7 +366,7 @@ const health: SeedArticle[] = [
     content: p(
       "A new cancer treatment wing at Mulago National Referral Hospital officially opened this week, adding 120 beds and two new radiotherapy machines to the country's cancer care capacity.",
       "The expansion is expected to significantly reduce waiting times at the Uganda Cancer Institute, which has struggled with high patient volumes relative to available equipment.",
-      "\"This is one of the most significant investments in cancer care Uganda has made in a decade,\" said a hospital administrator at the opening ceremony.",
+      '"This is one of the most significant investments in cancer care Uganda has made in a decade," said a hospital administrator at the opening ceremony.',
       "Officials say a further expansion focused on pediatric oncology is planned for next year."
     ),
     author: "Grace Auma",
@@ -382,7 +382,7 @@ const health: SeedArticle[] = [
     content: p(
       "Mental Health Awareness Week began in Kampala on Monday, with free counselling sessions, public talks and school outreach programmes planned across the city.",
       "Organisers say the campaign aims to reduce stigma and encourage more people to seek help for anxiety, depression and other mental health conditions.",
-      "\"Mental health has long been overlooked in our healthcare conversations. This week is about changing that,\" said a clinical psychologist involved in the programme.",
+      '"Mental health has long been overlooked in our healthcare conversations. This week is about changing that," said a clinical psychologist involved in the programme.',
       "Several private and public health facilities are offering discounted or free initial consultations throughout the week."
     ),
     author: "Ritah Namutebi",
@@ -397,7 +397,7 @@ const health: SeedArticle[] = [
     content: p(
       "A new study conducted across 40 districts has found a strong link between improved sanitation infrastructure and declining under-five mortality rates in Uganda.",
       "Researchers found that districts with expanded access to clean water and improved latrines saw child mortality rates fall nearly twice as fast as those without such investments.",
-      "\"This confirms what public health experts have long argued: sanitation is health infrastructure,\" said the study's lead author.",
+      '"This confirms what public health experts have long argued: sanitation is health infrastructure," said the study\'s lead author.',
       "The findings are expected to inform the next phase of the government's rural water and sanitation programme."
     ),
     author: "Moses Tumwine",
@@ -412,7 +412,7 @@ const health: SeedArticle[] = [
     content: p(
       "The World Health Organization has commended Uganda's health authorities for a swift response to a suspected Ebola case that emerged in a central district last month, crediting rapid contact tracing for preventing wider spread.",
       "No further confirmed cases have been recorded since the initial alert, and the affected district has since been declared clear following the standard monitoring period.",
-      "\"Uganda's experience managing previous outbreaks meant response teams were able to move quickly and decisively,\" a WHO regional official said.",
+      '"Uganda\'s experience managing previous outbreaks meant response teams were able to move quickly and decisively," a WHO regional official said.',
       "Health officials say surveillance systems along border districts remain on heightened alert as a precaution."
     ),
     author: "Emmanuel Byaruhanga",
@@ -430,7 +430,7 @@ const tech: SeedArticle[] = [
     content: p(
       "Ugandan fintech startups have attracted a record $85 million in investment so far this year, according to a new report from a regional venture capital association, more than double the amount raised in 2024.",
       "Digital lending and mobile money interoperability platforms accounted for the largest share of funding, reflecting continued growth in Uganda's mobile-first financial services sector.",
-      "\"Investors are increasingly viewing Uganda as a serious fintech hub within East Africa, not just an extension of the Kenyan market,\" said one venture capital analyst.",
+      '"Investors are increasingly viewing Uganda as a serious fintech hub within East Africa, not just an extension of the Kenyan market," said one venture capital analyst.',
       "Industry leaders say regulatory clarity from the central bank has played a significant role in building investor confidence."
     ),
     author: "Diana Nabukenya",
@@ -446,7 +446,7 @@ const tech: SeedArticle[] = [
     content: p(
       "The government has launched a new integration between the National Identification and Registration Authority (NIRA) database and mobile money platforms, allowing users to verify their identity electronically when registering for new accounts.",
       "Officials say the system is designed to reduce identity fraud, a persistent challenge in Uganda's fast-growing mobile money sector, while also speeding up account registration.",
-      "\"This closes a major gap that fraudsters have exploited for years,\" said a NIRA official at the system's launch.",
+      '"This closes a major gap that fraudsters have exploited for years," said a NIRA official at the system\'s launch.',
       "Telecom operators say the integration will be rolled out to all registration agents nationwide over the coming months."
     ),
     author: "Brian Kato",
@@ -476,7 +476,7 @@ const tech: SeedArticle[] = [
     content: p(
       "Uganda's two largest telecom operators, MTN and Airtel, have announced expanded 5G network coverage across Kampala, with rollout extending to key business districts and university campuses by the end of the year.",
       "Both companies say the expansion is aimed at supporting growing demand for high-speed data among businesses and students, as well as positioning Uganda competitively within the region's digital economy.",
-      "\"5G is not just about faster browsing, it's about enabling new services in areas like telemedicine and remote learning,\" an MTN Uganda executive said.",
+      '"5G is not just about faster browsing, it\'s about enabling new services in areas like telemedicine and remote learning," an MTN Uganda executive said.',
       "Coverage outside the capital remains limited, with operators citing infrastructure costs as the main barrier to nationwide rollout."
     ),
     author: "Peter Ssemwogerere",
@@ -491,7 +491,7 @@ const tech: SeedArticle[] = [
     content: p(
       "A team of computer science students at Makerere University has developed a smartphone application that uses artificial intelligence to detect common coffee leaf diseases from a single photograph.",
       "The app, trained on thousands of images of Ugandan coffee crops, can identify conditions such as coffee leaf rust and berry disease with over 90 percent accuracy in early testing.",
-      "\"Coffee is central to so many livelihoods here. Catching disease early can be the difference between a good harvest and a ruined one,\" said one of the student developers.",
+      '"Coffee is central to so many livelihoods here. Catching disease early can be the difference between a good harvest and a ruined one," said one of the student developers.',
       "The team is now working with the Uganda Coffee Development Authority to pilot the tool with farmer cooperatives in the Rwenzori region."
     ),
     author: "Grace Auma",
@@ -507,7 +507,7 @@ const tech: SeedArticle[] = [
     content: p(
       "Uganda's national cybersecurity agency has issued a public warning over a rise in mobile money fraud schemes, particularly SIM-swap attacks and social engineering scams targeting unsuspecting users.",
       "The agency reported a 30 percent increase in reported incidents this quarter compared to the same period last year.",
-      "\"Never share your PIN or one-time codes with anyone, including people claiming to be from your telecom provider,\" the agency said in its advisory.",
+      '"Never share your PIN or one-time codes with anyone, including people claiming to be from your telecom provider," the agency said in its advisory.',
       "Telecom operators say they are working with law enforcement to strengthen verification procedures for SIM replacement requests."
     ),
     author: "Moses Tumwine",
@@ -525,7 +525,7 @@ const gospel: SeedArticle[] = [
     content: p(
       "Tens of thousands of worshippers filled Kololo Ceremonial Grounds on Saturday night for the annual Kampala Worship Festival, one of the largest gospel gatherings on the region's calendar.",
       "The event featured performances from choirs and worship teams across Uganda, Kenya and Rwanda, along with prayer sessions led by local church leaders.",
-      "\"Nights like this remind us how much gospel music unites people across denominations and borders,\" said one of the festival's organisers.",
+      '"Nights like this remind us how much gospel music unites people across denominations and borders," said one of the festival\'s organisers.',
       "Organisers say next year's edition will expand to a two-night format due to overwhelming demand."
     ),
     author: "Josephine Achieng",
@@ -542,7 +542,7 @@ const gospel: SeedArticle[] = [
     dek: "The award-winning singer says the project reflects a season of personal growth and will be accompanied by a 10-city tour.",
     content: p(
       "Renowned gospel artist Wilson Bugembe has announced the release of a new album, his first full-length project in three years, alongside a ten-city national tour set to begin next month.",
-      "\"This album came out of a season of real reflection. I believe it will speak to a lot of people going through their own seasons,\" Bugembe said at the announcement event.",
+      '"This album came out of a season of real reflection. I believe it will speak to a lot of people going through their own seasons," Bugembe said at the announcement event.',
       "The tour will visit major towns including Jinja, Mbarara, Gulu and Mbale, with the Kampala leg planned as the closing show.",
       "Bugembe remains one of Uganda's most influential gospel artists, with several of his songs becoming staples in churches across East Africa."
     ),
@@ -557,7 +557,7 @@ const gospel: SeedArticle[] = [
     dek: "Denominational leaders met this week to plan the annual event, urging Ugandans to set aside differences for a common day of prayer.",
     content: p(
       "Leaders from Uganda's major church denominations met in Kampala this week to plan this year's National Prayer Breakfast, calling for greater unity among Christians ahead of the event.",
-      "\"Our nation faces real challenges. This is a moment for the Church to stand together, not apart,\" said one bishop involved in the planning committee.",
+      '"Our nation faces real challenges. This is a moment for the Church to stand together, not apart," said one bishop involved in the planning committee.',
       "The National Prayer Breakfast, held annually, typically draws senior government officials, diplomats and religious leaders from across denominations.",
       "This year's event is scheduled to take place next month at a venue in Kampala yet to be announced."
     ),
@@ -573,7 +573,7 @@ const gospel: SeedArticle[] = [
     content: p(
       "A three-day youth revival crusade in Mbale drew record crowds this week, with organisers estimating attendance of over 15,000 people on the closing night alone.",
       "The event featured performances from youth choirs, personal testimonies and evening sermons led by a lineup of visiting evangelists from across the region.",
-      "\"We wanted to create a space where young people could encounter faith in a way that feels alive and relevant to them,\" said the crusade's lead organiser.",
+      '"We wanted to create a space where young people could encounter faith in a way that feels alive and relevant to them," said the crusade\'s lead organiser.',
       "Local church leaders say interest in youth-focused gospel events has grown steadily across eastern Uganda in recent years."
     ),
     author: "Brian Kato",
@@ -589,7 +589,7 @@ const gospel: SeedArticle[] = [
     content: p(
       "A Kampala-based gospel choir has won the Best Gospel Group award at this year's East Africa Music Awards, held in Nairobi, marking its second continental recognition in three years.",
       "The choir's director said the award reflected years of disciplined rehearsal and a commitment to original Ugandan gospel compositions rather than covers.",
-      "\"We wanted to show that Ugandan gospel music can stand on its own on a regional stage,\" the director said after the ceremony.",
+      '"We wanted to show that Ugandan gospel music can stand on its own on a regional stage," the director said after the ceremony.',
       "The group is now preparing to release its third studio album early next year."
     ),
     author: "Emmanuel Byaruhanga",
@@ -604,7 +604,7 @@ const gospel: SeedArticle[] = [
     content: p(
       "A new documentary tracing the evolution of Ugandan gospel music premiered in Kampala this week, featuring interviews with pioneering artists, producers and church leaders.",
       "The hour-long film covers the genre's growth from small church choirs in the 1990s to today's professionally produced gospel artists who regularly top national and regional charts.",
-      "\"Gospel music here has its own story, distinct from what you see in Nigeria or the US. This film is about honouring that story,\" the director said.",
+      '"Gospel music here has its own story, distinct from what you see in Nigeria or the US. This film is about honouring that story," the director said.',
       "The documentary will be screened in select cinemas before being made available online."
     ),
     author: "Diana Nabukenya",
@@ -622,7 +622,7 @@ const entertainment: SeedArticle[] = [
     content: p(
       "Grammy-nominated singer Eddy Kenzo has announced a new collaboration with a leading Afrobeats star, with the joint single set for release later this month.",
       "Kenzo said the track blends Ugandan dance rhythms with West African production styles, and that part of the accompanying music video was filmed in Kampala.",
-      "\"This is about showing the world that African music is one big family, no matter which country it comes from,\" Kenzo said in an interview.",
+      '"This is about showing the world that African music is one big family, no matter which country it comes from," Kenzo said in an interview.',
       "The singer's global profile has grown steadily since his 2015 hit 'Sitya Loss' became an international viral sensation."
     ),
     author: "Ritah Namutebi",
@@ -638,7 +638,7 @@ const entertainment: SeedArticle[] = [
     content: p(
       "Kampala Fashion Week returned this week with a strong focus on sustainability, showcasing designers who work primarily with recycled fabrics and locally sourced materials.",
       "Organisers said the shift reflects a broader movement within East Africa's fashion industry toward more environmentally conscious production.",
-      "\"Consumers, especially younger ones, are asking harder questions about where their clothes come from. Designers are responding,\" said the event's creative director.",
+      '"Consumers, especially younger ones, are asking harder questions about where their clothes come from. Designers are responding," said the event\'s creative director.',
       "The week-long event closes with a showcase featuring collections from over 30 designers from Uganda and neighbouring countries."
     ),
     author: "Grace Auma",
@@ -654,7 +654,7 @@ const entertainment: SeedArticle[] = [
     content: p(
       "A Ugandan feature film, 'Bwino,' has been selected to screen at an international film festival, competing in the African cinema category alongside entries from a dozen other countries.",
       "The drama, shot entirely on location in Kampala and Jinja, follows a young entrepreneur navigating family expectations and personal ambition.",
-      "\"This film is deeply Ugandan in its setting and story, but the themes are ones anyone can relate to,\" said the film's director.",
+      '"This film is deeply Ugandan in its setting and story, but the themes are ones anyone can relate to," said the film\'s director.',
       "It marks one of the highest-profile international selections for a Ugandan-made film in recent years."
     ),
     author: "Moses Tumwine",
@@ -685,7 +685,7 @@ const entertainment: SeedArticle[] = [
     content: p(
       "A growing number of Kampala restaurants are building menus around direct partnerships with local farmers, part of a broader farm-to-table movement reshaping the city's dining scene.",
       "Chefs say the shift is driven both by demand for fresher ingredients and a desire to support smallholder farmers directly rather than relying solely on wholesale markets.",
-      "\"When you know exactly which farm your vegetables came from that morning, it changes how you cook,\" said one Kampala-based chef leading the trend.",
+      '"When you know exactly which farm your vegetables came from that morning, it changes how you cook," said one Kampala-based chef leading the trend.',
       "The movement has also spurred a handful of new weekend farmers' markets popping up around the city."
     ),
     author: "Sarah Nakato",
@@ -700,7 +700,7 @@ const entertainment: SeedArticle[] = [
     content: p(
       "Nominations for this year's Uganda Entertainment Awards were released this week, featuring a mix of veteran radio and television personalities alongside a growing number of digital-first content creators.",
       "Organisers say the inclusion of online creators reflects changing viewing habits, with many young Ugandans now consuming entertainment content primarily through social media.",
-      "\"The lines between traditional broadcast and digital content have basically disappeared. Our nominations needed to reflect that,\" an awards committee spokesperson said.",
+      '"The lines between traditional broadcast and digital content have basically disappeared. Our nominations needed to reflect that," an awards committee spokesperson said.',
       "The winners will be announced at a ceremony in Kampala next month."
     ),
     author: "Brian Kato",

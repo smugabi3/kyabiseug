@@ -18,15 +18,12 @@ export function CategoryBadge({
       href={`/category/${slug}`}
       style={{ color: categoryColor(slug) }}
       className={cn(
-        "inline-flex items-center gap-1 font-headline font-bold uppercase tracking-wider hover:underline",
+        "font-headline inline-flex items-center gap-1 font-bold tracking-wider uppercase hover:underline",
         size === "sm" ? "text-[0.7rem]" : "text-xs",
         className
       )}
     >
-      <span
-        className="h-1.5 w-1.5 rounded-full"
-        style={{ backgroundColor: categoryColor(slug) }}
-      />
+      <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: categoryColor(slug) }} />
       {name}
     </Link>
   );

@@ -25,16 +25,28 @@ export function AdminShell({
 
   const links = (compact: boolean) => (
     <>
-      <ShellLink href="/admin" active={active === "dashboard"} icon={<LayoutDashboard className="h-4 w-4" />}>
+      <ShellLink
+        href="/admin"
+        active={active === "dashboard"}
+        icon={<LayoutDashboard className="h-4 w-4" />}
+      >
         Dashboard
       </ShellLink>
       {canManageUsers(role) && (
-        <ShellLink href="/admin/users" active={active === "users"} icon={<UsersIcon className="h-4 w-4" />}>
+        <ShellLink
+          href="/admin/users"
+          active={active === "users"}
+          icon={<UsersIcon className="h-4 w-4" />}
+        >
           Users
         </ShellLink>
       )}
       {canViewSubscribers(role) && (
-        <ShellLink href="/admin/subscribers" active={active === "subscribers"} icon={<Mail className="h-4 w-4" />}>
+        <ShellLink
+          href="/admin/subscribers"
+          active={active === "subscribers"}
+          icon={<Mail className="h-4 w-4" />}
+        >
           Subscribers
         </ShellLink>
       )}
@@ -47,8 +59,8 @@ export function AdminShell({
   );
 
   return (
-    <div className="flex min-h-full flex-1 flex-col bg-surface-alt">
-      <header className="border-b border-border bg-surface">
+    <div className="bg-surface-alt flex min-h-full flex-1 flex-col">
+      <header className="border-border bg-surface border-b">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-10">
           <div className="flex items-center gap-6">
             <Logo />
@@ -57,14 +69,14 @@ export function AdminShell({
 
           <div className="flex items-center gap-3">
             <div className="text-right leading-tight">
-              <p className="text-sm font-semibold text-ink">{user.name}</p>
-              <p className="text-xs font-bold uppercase tracking-wide text-brand">{roleLabel}</p>
+              <p className="text-ink text-sm font-semibold">{user.name}</p>
+              <p className="text-brand text-xs font-bold tracking-wide uppercase">{roleLabel}</p>
             </div>
             <ThemeToggle />
             <form action={logoutAction}>
               <button
                 type="submit"
-                className="rounded-full border border-border px-4 py-2 font-headline text-xs font-bold uppercase tracking-wide text-ink-muted transition hover:border-brand hover:text-brand"
+                className="border-border font-headline text-ink-muted hover:border-brand hover:text-brand rounded-full border px-4 py-2 text-xs font-bold tracking-wide uppercase transition"
               >
                 Sign Out
               </button>
@@ -72,7 +84,7 @@ export function AdminShell({
           </div>
         </div>
 
-        <nav className="flex items-center gap-1 overflow-x-auto border-t border-border px-4 py-1.5 sm:hidden">
+        <nav className="border-border flex items-center gap-1 overflow-x-auto border-t px-4 py-1.5 sm:hidden">
           {links(true)}
         </nav>
       </header>
@@ -98,8 +110,8 @@ function ShellLink({
       href={href}
       className={
         active
-          ? "flex shrink-0 items-center gap-1.5 rounded-full bg-brand px-3.5 py-2 font-headline text-xs font-bold uppercase tracking-wide text-white"
-          : "flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 font-headline text-xs font-bold uppercase tracking-wide text-ink-muted transition hover:text-brand"
+          ? "bg-brand font-headline flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-bold tracking-wide text-white uppercase"
+          : "font-headline text-ink-muted hover:text-brand flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-bold tracking-wide uppercase transition"
       }
     >
       {icon}

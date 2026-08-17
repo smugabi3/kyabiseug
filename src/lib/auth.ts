@@ -2,11 +2,7 @@ import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
-
-const SESSION_COOKIE = "kyabiseug_session";
-const secret = new TextEncoder().encode(
-  process.env.SESSION_SECRET ?? "kyabiseug-dev-secret-change-in-production"
-);
+import { SESSION_COOKIE, getSessionSecret } from "@/lib/session-secret";
 
 export async function hashPassword(password: string) {
   return bcrypt.hash(password, 10);
@@ -21,7 +17,7 @@ export async function createSession(userId: string) {
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime("7d")
-    .sign(secret);
+    .sign(getSessionSecret());
 
   const store = await cookies();
   store.set(SESSION_COOKIE, token, {
@@ -43,7 +39,7 @@ async function getSessionUserId(): Promise<string | null> {
   const token = store.get(SESSION_COOKIE)?.value;
   if (!token) return null;
   try {
-    const { payload } = await jwtVerify(token, secret);
+    const { payload } = await jwtVerify(token, getSessionSecret());
     return typeof payload.userId === "string" ? payload.userId : null;
   } catch {
     return null;

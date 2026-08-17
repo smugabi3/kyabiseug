@@ -30,7 +30,10 @@ export function ArticleCard({
   if (variant === "compact") {
     return (
       <div className="group flex gap-3">
-        <Link href={href} className="relative h-16 w-24 shrink-0 overflow-hidden rounded-md bg-surface-alt">
+        <Link
+          href={href}
+          className="bg-surface-alt relative h-16 w-24 shrink-0 overflow-hidden rounded-md"
+        >
           <Image
             src={article.coverImage}
             alt=""
@@ -42,7 +45,7 @@ export function ArticleCard({
         <div className="min-w-0">
           <CategoryBadge slug={article.category.slug} name={article.category.name} size="sm" />
           <Link href={href}>
-            <h3 className="mt-1 line-clamp-2 font-headline text-sm font-bold leading-snug text-ink group-hover:text-brand">
+            <h3 className="font-headline text-ink group-hover:text-brand mt-1 line-clamp-2 text-sm leading-snug font-bold">
               {article.title}
             </h3>
           </Link>
@@ -56,7 +59,7 @@ export function ArticleCard({
       <div className="group flex gap-4 sm:gap-5">
         <Link
           href={href}
-          className="relative aspect-[4/3] w-32 shrink-0 overflow-hidden rounded-lg bg-surface-alt sm:w-48"
+          className="bg-surface-alt relative aspect-[4/3] w-32 shrink-0 overflow-hidden rounded-lg sm:w-48"
         >
           <Image
             src={article.coverImage}
@@ -70,16 +73,16 @@ export function ArticleCard({
         <div className="min-w-0 flex-1">
           <CategoryBadge slug={article.category.slug} name={article.category.name} />
           <Link href={href}>
-            <h3 className="mt-1.5 line-clamp-2 font-headline text-lg font-bold leading-tight text-ink group-hover:text-brand sm:text-xl">
+            <h3 className="font-headline text-ink group-hover:text-brand mt-1.5 line-clamp-2 text-lg leading-tight font-bold sm:text-xl">
               {article.title}
             </h3>
           </Link>
           {showDek && (
-            <p className="mt-1.5 hidden line-clamp-2 text-sm text-ink-muted sm:block">
+            <p className="text-ink-muted mt-1.5 line-clamp-2 hidden text-sm sm:block">
               {article.dek}
             </p>
           )}
-          <p className="mt-2 text-xs text-ink-soft">{timeAgo(article.publishedAt)}</p>
+          <p className="text-ink-soft mt-2 text-xs">{timeAgo(article.publishedAt)}</p>
         </div>
       </div>
     );
@@ -87,7 +90,10 @@ export function ArticleCard({
 
   return (
     <div className="group block">
-      <Link href={href} className="relative block aspect-[4/3] overflow-hidden rounded-lg bg-surface-alt">
+      <Link
+        href={href}
+        className="bg-surface-alt relative block aspect-[4/3] overflow-hidden rounded-lg"
+      >
         <Image
           src={article.coverImage}
           alt=""
@@ -100,14 +106,12 @@ export function ArticleCard({
       <div className="mt-3">
         <CategoryBadge slug={article.category.slug} name={article.category.name} />
         <Link href={href}>
-          <h3 className="mt-1.5 line-clamp-2 font-headline text-lg font-bold leading-tight text-ink group-hover:text-brand">
+          <h3 className="font-headline text-ink group-hover:text-brand mt-1.5 line-clamp-2 text-lg leading-tight font-bold">
             {article.title}
           </h3>
         </Link>
-        {showDek && (
-          <p className="mt-1.5 line-clamp-2 text-sm text-ink-muted">{article.dek}</p>
-        )}
-        <p className="mt-2 text-xs text-ink-soft">{timeAgo(article.publishedAt)}</p>
+        {showDek && <p className="text-ink-muted mt-1.5 line-clamp-2 text-sm">{article.dek}</p>}
+        <p className="text-ink-soft mt-2 text-xs">{timeAgo(article.publishedAt)}</p>
       </div>
     </div>
   );
@@ -116,7 +120,7 @@ export function ArticleCard({
 function VideoBadge() {
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-black/10">
-      <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white/90 text-brand shadow-lg">
+      <span className="text-brand flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-lg">
         <Play className="ml-0.5 h-4 w-4 fill-current" />
       </span>
     </div>

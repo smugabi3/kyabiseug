@@ -9,7 +9,7 @@ export function LoginForm() {
   return (
     <form action={formAction} className="space-y-4">
       <div>
-        <label className="mb-1 block text-xs font-bold uppercase tracking-wide text-ink-muted">
+        <label className="text-ink-muted mb-1 block text-xs font-bold tracking-wide uppercase">
           Email
         </label>
         <input
@@ -17,25 +17,25 @@ export function LoginForm() {
           type="email"
           required
           placeholder="you@kyabiseug.ug"
-          className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-ink outline-none focus:border-brand"
+          className="border-border bg-surface text-ink focus:border-brand w-full rounded-lg border px-3 py-2.5 text-sm outline-none"
         />
       </div>
       <div>
-        <label className="mb-1 block text-xs font-bold uppercase tracking-wide text-ink-muted">
+        <label className="text-ink-muted mb-1 block text-xs font-bold tracking-wide uppercase">
           Password
         </label>
         <input
           name="password"
           type="password"
           required
-          className="w-full rounded-lg border border-border bg-surface px-3 py-2.5 text-sm text-ink outline-none focus:border-brand"
+          className="border-border bg-surface text-ink focus:border-brand w-full rounded-lg border px-3 py-2.5 text-sm outline-none"
         />
       </div>
-      {state?.error && <p className="text-sm text-brand">{state.error}</p>}
+      {state?.error && <p className="text-brand text-sm">{state.error}</p>}
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-full bg-brand py-2.5 font-headline text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-ink disabled:opacity-60"
+        className="bg-brand font-headline hover:bg-brand-ink w-full rounded-full py-2.5 text-sm font-bold tracking-wide text-white uppercase transition disabled:opacity-60"
       >
         {pending ? "Signing in..." : "Sign In"}
       </button>

@@ -16,7 +16,7 @@ export default async function NewArticlePage() {
   return (
     <AdminShell user={user} active="other">
       <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
-        <h1 className="mb-8 font-headline text-3xl font-extrabold uppercase tracking-tight text-ink">
+        <h1 className="font-headline text-ink mb-8 text-3xl font-extrabold tracking-tight uppercase">
           New Article
         </h1>
         <ArticleForm

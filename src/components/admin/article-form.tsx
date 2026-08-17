@@ -114,7 +114,7 @@ export function ArticleForm({
 
       <button
         type="submit"
-        className="rounded-full bg-brand px-6 py-3 font-headline text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-ink"
+        className="bg-brand font-headline hover:bg-brand-ink rounded-full px-6 py-3 text-sm font-bold tracking-wide text-white uppercase transition"
       >
         {submitLabel}
       </button>
@@ -133,11 +133,11 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-xs font-bold uppercase tracking-wide text-ink-muted">
+      <span className="text-ink-muted mb-1 block text-xs font-bold tracking-wide uppercase">
         {label}
       </span>
       {children}
-      {hint && <span className="mt-1 block text-xs text-ink-soft">{hint}</span>}
+      {hint && <span className="text-ink-soft mt-1 block text-xs">{hint}</span>}
     </label>
   );
 }
@@ -152,12 +152,12 @@ function Checkbox({
   defaultChecked: boolean;
 }) {
   return (
-    <label className="flex items-center gap-2 text-sm text-ink">
+    <label className="text-ink flex items-center gap-2 text-sm">
       <input
         type="checkbox"
         name={name}
         defaultChecked={defaultChecked}
-        className="h-4 w-4 rounded border-border accent-brand"
+        className="border-border accent-brand h-4 w-4 rounded"
       />
       {label}
     </label>

@@ -41,7 +41,7 @@ export function ShareButtons({ title, path }: { title: string; path: string }) {
 
   return (
     <div className="flex items-center gap-2">
-      <span className="text-xs font-bold uppercase tracking-wide text-ink-soft">Share</span>
+      <span className="text-ink-soft text-xs font-bold tracking-wide uppercase">Share</span>
       {links.map((l) => (
         <a
           key={l.label}
@@ -49,7 +49,7 @@ export function ShareButtons({ title, path }: { title: string; path: string }) {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Share on ${l.label}`}
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-ink-muted transition hover:border-brand hover:text-brand"
+          className="border-border text-ink-muted hover:border-brand hover:text-brand flex h-9 w-9 items-center justify-center rounded-full border transition"
         >
           {l.icon}
         </a>
@@ -58,9 +58,9 @@ export function ShareButtons({ title, path }: { title: string; path: string }) {
         type="button"
         onClick={copyLink}
         aria-label="Copy link"
-        className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-ink-muted transition hover:border-brand hover:text-brand"
+        className="border-border text-ink-muted hover:border-brand hover:text-brand flex h-9 w-9 items-center justify-center rounded-full border transition"
       >
-        {copied ? <Check className="h-4 w-4 text-cat-sports" /> : <Link2 className="h-4 w-4" />}
+        {copied ? <Check className="text-cat-sports h-4 w-4" /> : <Link2 className="h-4 w-4" />}
       </button>
     </div>
   );

@@ -44,12 +44,12 @@ export default async function HomePage() {
       <section className="grid gap-8 lg:grid-cols-[2fr_1fr]">
         <div>
           <div className="mb-4 flex items-center justify-between">
-            <h1 className="font-headline text-2xl font-extrabold uppercase tracking-tight text-cat-local sm:text-3xl">
+            <h1 className="font-headline text-cat-local text-2xl font-extrabold tracking-tight uppercase sm:text-3xl">
               Uganda Today
             </h1>
             <Link
               href="/category/local"
-              className="text-xs font-bold uppercase tracking-wide text-ink-muted hover:text-brand"
+              className="text-ink-muted hover:text-brand text-xs font-bold tracking-wide uppercase"
             >
               All Local News
             </Link>
@@ -59,7 +59,7 @@ export default async function HomePage() {
             <div className="group block">
               <Link
                 href={`/article/${hero.slug}`}
-                className="relative block aspect-[16/9] overflow-hidden rounded-xl bg-surface-alt sm:aspect-[2/1]"
+                className="bg-surface-alt relative block aspect-[16/9] overflow-hidden rounded-xl sm:aspect-[2/1]"
               >
                 <Image
                   src={hero.coverImage}
@@ -70,7 +70,7 @@ export default async function HomePage() {
                   className="object-cover transition duration-300 group-hover:scale-105"
                 />
                 {hero.isBreaking && (
-                  <span className="absolute left-4 top-4 rounded bg-brand px-2.5 py-1 font-headline text-xs font-bold uppercase tracking-wider text-white shadow">
+                  <span className="bg-brand font-headline absolute top-4 left-4 rounded px-2.5 py-1 text-xs font-bold tracking-wider text-white uppercase shadow">
                     Breaking
                   </span>
                 )}
@@ -78,14 +78,14 @@ export default async function HomePage() {
               <div className="mt-4">
                 <CategoryBadge slug={hero.category.slug} name={hero.category.name} size="md" />
                 <Link href={`/article/${hero.slug}`}>
-                  <h2 className="mt-2 font-headline text-3xl font-extrabold leading-[1.05] text-ink group-hover:text-brand sm:text-4xl">
+                  <h2 className="font-headline text-ink group-hover:text-brand mt-2 text-3xl leading-[1.05] font-extrabold sm:text-4xl">
                     {hero.title}
                   </h2>
                 </Link>
-                <p className="mt-3 max-w-2xl text-base leading-relaxed text-ink-muted">
+                <p className="text-ink-muted mt-3 max-w-2xl text-base leading-relaxed">
                   {hero.dek}
                 </p>
-                <p className="mt-3 text-xs text-ink-soft">
+                <p className="text-ink-soft mt-3 text-xs">
                   By {hero.author} &middot; {timeAgo(hero.publishedAt)}
                 </p>
               </div>
@@ -93,7 +93,7 @@ export default async function HomePage() {
           )}
 
           {heroSecondary.length > 0 && (
-            <div className="mt-8 grid gap-6 border-t border-border pt-6 sm:grid-cols-2">
+            <div className="border-border mt-8 grid gap-6 border-t pt-6 sm:grid-cols-2">
               {heroSecondary.map((a) => (
                 <ArticleCard key={a.slug} article={a} />
               ))}
@@ -106,7 +106,11 @@ export default async function HomePage() {
 
       {localMore.length > 0 && (
         <section>
-          <SectionHeader title="More Local News" href="/category/local" color={categoryColor("local")} />
+          <SectionHeader
+            title="More Local News"
+            href="/category/local"
+            color={categoryColor("local")}
+          />
           <div className="grid gap-6 sm:grid-cols-2">
             {localMore.map((a) => (
               <ArticleCard key={a.slug} article={a} variant="horizontal" />

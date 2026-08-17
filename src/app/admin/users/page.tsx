@@ -28,25 +28,25 @@ export default async function UsersPage() {
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-10">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="font-headline text-3xl font-extrabold uppercase tracking-tight text-ink">
+            <h1 className="font-headline text-ink text-3xl font-extrabold tracking-tight uppercase">
               Team &amp; Access
             </h1>
-            <p className="mt-1 text-sm text-ink-muted">
+            <p className="text-ink-muted mt-1 text-sm">
               Create and manage editor, author and subscriber accounts.
             </p>
           </div>
           <Link
             href="/admin/users/new"
-            className="flex items-center gap-1.5 rounded-full bg-brand px-4 py-2.5 font-headline text-xs font-bold uppercase tracking-wide text-white transition hover:bg-brand-ink"
+            className="bg-brand font-headline hover:bg-brand-ink flex items-center gap-1.5 rounded-full px-4 py-2.5 text-xs font-bold tracking-wide text-white uppercase transition"
           >
             <Plus className="h-4 w-4" />
             New User
           </Link>
         </div>
 
-        <div className="mt-8 overflow-x-auto rounded-xl border border-border bg-surface">
+        <div className="border-border bg-surface mt-8 overflow-x-auto rounded-xl border">
           <table className="w-full min-w-[640px] text-left text-sm">
-            <thead className="border-b border-border bg-surface-alt text-xs font-bold uppercase tracking-wide text-ink-muted">
+            <thead className="border-border bg-surface-alt text-ink-muted border-b text-xs font-bold tracking-wide uppercase">
               <tr>
                 <th className="px-4 py-3">Name</th>
                 <th className="px-4 py-3">Email</th>
@@ -56,7 +56,7 @@ export default async function UsersPage() {
                 <th className="px-4 py-3 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border">
+            <tbody className="divide-border divide-y">
               {users.map((u) => {
                 const isSelf = u.id === user.id;
                 const isLastAdmin = u.role === "admin" && adminCount <= 1;
@@ -64,30 +64,35 @@ export default async function UsersPage() {
                 const canDelete = canDeleteUser(user, u) && !isSelf && !isLastAdmin;
                 return (
                   <tr key={u.id}>
-                    <td className="px-4 py-3 font-medium text-ink">
+                    <td className="text-ink px-4 py-3 font-medium">
                       {u.name}
-                      {isSelf && <span className="ml-2 text-xs font-bold text-ink-soft">(you)</span>}
+                      {isSelf && (
+                        <span className="text-ink-soft ml-2 text-xs font-bold">(you)</span>
+                      )}
                     </td>
-                    <td className="px-4 py-3 text-ink-muted">{u.email}</td>
+                    <td className="text-ink-muted px-4 py-3">{u.email}</td>
                     <td className="px-4 py-3">
                       <RoleBadge role={u.role as Role} isSuperAdmin={u.isSuperAdmin} />
                     </td>
-                    <td className="px-4 py-3 text-ink-muted">
+                    <td className="text-ink-muted px-4 py-3">
                       {articleCountByUser.get(u.id) ?? 0}
                     </td>
-                    <td className="px-4 py-3 text-ink-muted">{timeAgo(u.createdAt)}</td>
+                    <td className="text-ink-muted px-4 py-3">{timeAgo(u.createdAt)}</td>
                     <td className="px-4 py-3">
-                      <div className="flex items-center justify-end gap-3 text-xs font-bold uppercase tracking-wide">
+                      <div className="flex items-center justify-end gap-3 text-xs font-bold tracking-wide uppercase">
                         {canEdit ? (
                           <Link
                             href={`/admin/users/${u.id}/edit`}
-                            className="flex items-center gap-1 text-ink-muted hover:text-brand"
+                            className="text-ink-muted hover:text-brand flex items-center gap-1"
                           >
                             <Pencil className="h-3.5 w-3.5" />
                             Edit
                           </Link>
                         ) : (
-                          <span className="flex items-center gap-1 text-ink-soft/50" title="Only the super admin can edit this account">
+                          <span
+                            className="text-ink-soft/50 flex items-center gap-1"
+                            title="Only the super admin can edit this account"
+                          >
                             <Pencil className="h-3.5 w-3.5" />
                             Edit
                           </span>
@@ -128,7 +133,7 @@ export default async function UsersPage() {
 function RoleBadge({ role, isSuperAdmin }: { role: Role; isSuperAdmin: boolean }) {
   if (isSuperAdmin) {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-gold/20 px-2.5 py-1 text-xs font-bold text-gold-ink">
+      <span className="bg-gold/20 text-gold-ink inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold">
         <ShieldCheck className="h-3.5 w-3.5" />
         Super Admin
       </span>

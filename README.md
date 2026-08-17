@@ -29,16 +29,28 @@ Visit `http://localhost:3000`. The newsroom dashboard lives at `/admin`.
 
 ## Deploying to Vercel
 
-1. Provision Postgres (Vercel dashboard → Storage → Create Database). Vercel injects
-   `DATABASE_URL` into the project automatically.
-2. Add `SESSION_SECRET` (a long random string) under Settings → Environment Variables.
-   Optionally add the two `MAILCHIMP_*` variables.
+**Project settings** (Settings → Build and Deployment):
+
+- **Framework Preset** must be **Next.js**. If it's set to "Other", Vercel serves the
+  project as a static site and every route returns 404 even though the build succeeds.
+- Leave Build/Install/Output commands on their defaults (no overrides).
+
+**Steps:**
+
+1. Provision Postgres (Storage → Create Database). Vercel injects `DATABASE_URL`
+   into the project automatically.
+2. Under Settings → Environment Variables, add `SESSION_SECRET` — generate it with
+   `openssl rand -base64 32`. This is **required**: the app refuses to serve sessions
+   without it, since the development fallback is public in this repo. Optionally add
+   the two `MAILCHIMP_*` variables.
 3. Run the migrations and seed against the production database once, from your machine:
    ```bash
    DATABASE_URL="<production-url>" npx prisma migrate deploy
    DATABASE_URL="<production-url>" npm run db:seed
    DATABASE_URL="<production-url>" npm run admin:create
    ```
+4. If the site redirects to a Vercel login page, turn off Settings → Deployment
+   Protection for Production (it's on by default for some plans).
 
 `prisma generate` runs automatically on every install, and no page queries the database
 at build time, so deploys don't depend on the database being reachable during the build.
@@ -83,6 +95,7 @@ Authorization is enforced server-side on every request (not just hidden in the U
 - `npm run dev` — start the dev server
 - `npm run build` / `npm run start` — production build and serve
 - `npm run lint` — ESLint
+- `npm run format` / `npm run format:check` — Prettier (with Tailwind class sorting)
 - `npm run db:local` — run a self-contained local Postgres instance (no Docker needed)
 - `npm run db:seed` — seed categories and sample articles (safe to re-run)
 - `npm run db:studio` — open Prisma Studio

@@ -13,10 +13,10 @@ export default async function NewUserPage() {
   return (
     <AdminShell user={user} active="users">
       <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
-        <h1 className="mb-2 font-headline text-3xl font-extrabold uppercase tracking-tight text-ink">
+        <h1 className="font-headline text-ink mb-2 text-3xl font-extrabold tracking-tight uppercase">
           New User
         </h1>
-        <p className="mb-8 text-sm text-ink-muted">
+        <p className="text-ink-muted mb-8 text-sm">
           Create an account for a member of the KyabiseUG team, or register a subscriber.
         </p>
         <UserForm action={createUserAction} submitLabel="Create Account" />

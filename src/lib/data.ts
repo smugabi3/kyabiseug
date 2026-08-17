@@ -12,9 +12,7 @@ export const CATEGORY_ORDER = [
 
 export async function getCategories() {
   const categories = await prisma.category.findMany();
-  return categories.sort(
-    (a, b) => CATEGORY_ORDER.indexOf(a.slug) - CATEGORY_ORDER.indexOf(b.slug)
-  );
+  return categories.sort((a, b) => CATEGORY_ORDER.indexOf(a.slug) - CATEGORY_ORDER.indexOf(b.slug));
 }
 
 export async function getCategoryBySlug(slug: string) {

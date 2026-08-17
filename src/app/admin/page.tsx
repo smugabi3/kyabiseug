@@ -16,17 +16,17 @@ export default async function AdminDashboard() {
     return (
       <AdminShell user={user} active="dashboard">
         <div className="mx-auto max-w-2xl px-4 py-16 text-center sm:px-6">
-          <h1 className="font-headline text-3xl font-extrabold uppercase tracking-tight text-ink">
+          <h1 className="font-headline text-ink text-3xl font-extrabold tracking-tight uppercase">
             Welcome, {user.name}
           </h1>
-          <p className="mt-3 text-ink-muted">
+          <p className="text-ink-muted mt-3">
             Your account is registered as a <strong>{ROLE_LABELS.subscriber}</strong>. This tier
             doesn&apos;t include access to the newsroom — no articles or team members to manage
             here. If you believe this is a mistake, ask a KyabiseUG admin to change your role.
           </p>
           <Link
             href="/"
-            className="mt-6 inline-block rounded-full bg-brand px-5 py-2.5 font-headline text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-ink"
+            className="bg-brand font-headline hover:bg-brand-ink mt-6 inline-block rounded-full px-5 py-2.5 text-sm font-bold tracking-wide text-white uppercase transition"
           >
             Back to KyabiseUG
           </Link>
@@ -59,17 +59,17 @@ export default async function AdminDashboard() {
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-10">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="font-headline text-3xl font-extrabold uppercase tracking-tight text-ink">
+            <h1 className="font-headline text-ink text-3xl font-extrabold tracking-tight uppercase">
               {seeAll ? "Newsroom Dashboard" : "My Articles"}
             </h1>
-            <p className="mt-1 text-sm text-ink-muted">
+            <p className="text-ink-muted mt-1 text-sm">
               Welcome back, {user.name}
               {!seeAll && " — showing only the stories bylined to you."}
             </p>
           </div>
           <Link
             href="/admin/articles/new"
-            className="flex items-center gap-1.5 rounded-full bg-brand px-4 py-2.5 font-headline text-xs font-bold uppercase tracking-wide text-white transition hover:bg-brand-ink"
+            className="bg-brand font-headline hover:bg-brand-ink flex items-center gap-1.5 rounded-full px-4 py-2.5 text-xs font-bold tracking-wide text-white uppercase transition"
           >
             <Plus className="h-4 w-4" />
             New Article
@@ -88,19 +88,27 @@ export default async function AdminDashboard() {
             value={totalViews}
           />
           {commentCount !== null && (
-            <StatCard icon={<MessageCircle className="h-4 w-4" />} label="Comments" value={commentCount} />
+            <StatCard
+              icon={<MessageCircle className="h-4 w-4" />}
+              label="Comments"
+              value={commentCount}
+            />
           )}
           {subscriberCount !== null && (
-            <StatCard icon={<Users className="h-4 w-4" />} label="Subscribers" value={subscriberCount} />
+            <StatCard
+              icon={<Users className="h-4 w-4" />}
+              label="Subscribers"
+              value={subscriberCount}
+            />
           )}
           {teamCount !== null && (
             <StatCard icon={<Users className="h-4 w-4" />} label="Team Members" value={teamCount} />
           )}
         </div>
 
-        <div className="mt-10 overflow-x-auto rounded-xl border border-border bg-surface">
+        <div className="border-border bg-surface mt-10 overflow-x-auto rounded-xl border">
           <table className="w-full min-w-[760px] text-left text-sm">
-            <thead className="border-b border-border bg-surface-alt text-xs font-bold uppercase tracking-wide text-ink-muted">
+            <thead className="border-border bg-surface-alt text-ink-muted border-b text-xs font-bold tracking-wide uppercase">
               <tr>
                 <th className="px-4 py-3">Title</th>
                 <th className="px-4 py-3">Category</th>
@@ -111,35 +119,38 @@ export default async function AdminDashboard() {
                 <th className="px-4 py-3 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border">
+            <tbody className="divide-border divide-y">
               {articles.length === 0 && (
                 <tr>
-                  <td colSpan={seeAll ? 7 : 6} className="px-4 py-10 text-center text-ink-muted">
+                  <td colSpan={seeAll ? 7 : 6} className="text-ink-muted px-4 py-10 text-center">
                     No articles yet. Create your first story.
                   </td>
                 </tr>
               )}
               {articles.map((a) => (
                 <tr key={a.id}>
-                  <td className="max-w-xs truncate px-4 py-3 font-medium text-ink">{a.title}</td>
-                  <td className="px-4 py-3 text-ink-muted">{a.category.name}</td>
-                  {seeAll && <td className="px-4 py-3 text-ink-muted">{a.author}</td>}
+                  <td className="text-ink max-w-xs truncate px-4 py-3 font-medium">{a.title}</td>
+                  <td className="text-ink-muted px-4 py-3">{a.category.name}</td>
+                  {seeAll && <td className="text-ink-muted px-4 py-3">{a.author}</td>}
                   <td className="px-4 py-3">
                     <span
                       className={
                         a.published
-                          ? "rounded-full bg-cat-sports/10 px-2.5 py-1 text-xs font-bold text-cat-sports"
-                          : "rounded-full bg-ink-soft/10 px-2.5 py-1 text-xs font-bold text-ink-soft"
+                          ? "bg-cat-sports/10 text-cat-sports rounded-full px-2.5 py-1 text-xs font-bold"
+                          : "bg-ink-soft/10 text-ink-soft rounded-full px-2.5 py-1 text-xs font-bold"
                       }
                     >
                       {a.published ? "Published" : "Draft"}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-ink-muted">{a.views.toLocaleString()}</td>
-                  <td className="px-4 py-3 text-ink-muted">{timeAgo(a.publishedAt)}</td>
+                  <td className="text-ink-muted px-4 py-3">{a.views.toLocaleString()}</td>
+                  <td className="text-ink-muted px-4 py-3">{timeAgo(a.publishedAt)}</td>
                   <td className="px-4 py-3">
-                    <div className="flex items-center justify-end gap-3 text-xs font-bold uppercase tracking-wide">
-                      <Link href={`/admin/articles/${a.id}/edit`} className="text-ink-muted hover:text-brand">
+                    <div className="flex items-center justify-end gap-3 text-xs font-bold tracking-wide uppercase">
+                      <Link
+                        href={`/admin/articles/${a.id}/edit`}
+                        className="text-ink-muted hover:text-brand"
+                      >
                         Edit
                       </Link>
                       <form action={togglePublishAction.bind(null, a.id)}>
@@ -164,22 +175,14 @@ export default async function AdminDashboard() {
   );
 }
 
-function StatCard({
-  icon,
-  label,
-  value,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: number;
-}) {
+function StatCard({ icon, label, value }: { icon: React.ReactNode; label: string; value: number }) {
   return (
-    <div className="rounded-xl border border-border bg-surface p-5">
-      <div className="flex items-center gap-2 text-ink-soft">
+    <div className="border-border bg-surface rounded-xl border p-5">
+      <div className="text-ink-soft flex items-center gap-2">
         {icon}
-        <span className="text-xs font-bold uppercase tracking-wide">{label}</span>
+        <span className="text-xs font-bold tracking-wide uppercase">{label}</span>
       </div>
-      <p className="mt-2 font-headline text-3xl font-extrabold text-ink">
+      <p className="font-headline text-ink mt-2 text-3xl font-extrabold">
         {value.toLocaleString()}
       </p>
     </div>

@@ -22,50 +22,51 @@ export default async function SubscribersPage() {
       <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-10">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h1 className="font-headline text-3xl font-extrabold uppercase tracking-tight text-ink">
+            <h1 className="font-headline text-ink text-3xl font-extrabold tracking-tight uppercase">
               Newsletter Subscribers
             </h1>
-            <p className="mt-1 text-sm text-ink-muted">
-              {subscribers.length.toLocaleString()} {subscribers.length === 1 ? "person has" : "people have"} signed up
-              for the KyabiseUG newsletter.
+            <p className="text-ink-muted mt-1 text-sm">
+              {subscribers.length.toLocaleString()}{" "}
+              {subscribers.length === 1 ? "person has" : "people have"} signed up for the KyabiseUG
+              newsletter.
             </p>
           </div>
           {mailchimpOn ? (
-            <span className="flex items-center gap-1.5 rounded-full bg-cat-sports/10 px-3 py-1.5 text-xs font-bold text-cat-sports">
+            <span className="bg-cat-sports/10 text-cat-sports flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold">
               <CheckCircle2 className="h-3.5 w-3.5" />
               Synced to Mailchimp
             </span>
           ) : (
-            <span className="flex items-center gap-1.5 rounded-full bg-gold/20 px-3 py-1.5 text-xs font-bold text-gold-ink">
+            <span className="bg-gold/20 text-gold-ink flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold">
               <AlertTriangle className="h-3.5 w-3.5" />
               Mailchimp not connected
             </span>
           )}
         </div>
 
-        <div className="mt-8 overflow-x-auto rounded-xl border border-border bg-surface">
+        <div className="border-border bg-surface mt-8 overflow-x-auto rounded-xl border">
           <table className="w-full min-w-[420px] text-left text-sm">
-            <thead className="border-b border-border bg-surface-alt text-xs font-bold uppercase tracking-wide text-ink-muted">
+            <thead className="border-border bg-surface-alt text-ink-muted border-b text-xs font-bold tracking-wide uppercase">
               <tr>
                 <th className="px-4 py-3">Email</th>
                 <th className="px-4 py-3">Subscribed</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border">
+            <tbody className="divide-border divide-y">
               {subscribers.length === 0 && (
                 <tr>
-                  <td colSpan={2} className="px-4 py-10 text-center text-ink-muted">
+                  <td colSpan={2} className="text-ink-muted px-4 py-10 text-center">
                     No subscribers yet.
                   </td>
                 </tr>
               )}
               {subscribers.map((s) => (
                 <tr key={s.id}>
-                  <td className="flex items-center gap-2 px-4 py-3 font-medium text-ink">
-                    <Mail className="h-3.5 w-3.5 text-ink-soft" />
+                  <td className="text-ink flex items-center gap-2 px-4 py-3 font-medium">
+                    <Mail className="text-ink-soft h-3.5 w-3.5" />
                     {s.email}
                   </td>
-                  <td className="px-4 py-3 text-ink-muted">{longDate(s.createdAt)}</td>
+                  <td className="text-ink-muted px-4 py-3">{longDate(s.createdAt)}</td>
                 </tr>
               ))}
             </tbody>

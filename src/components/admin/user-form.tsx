@@ -45,7 +45,10 @@ export function UserForm({
         />
       </Field>
 
-      <Field label={defaults ? "New Password" : "Password"} hint={defaults ? "Leave blank to keep the current password." : "At least 8 characters."}>
+      <Field
+        label={defaults ? "New Password" : "Password"}
+        hint={defaults ? "Leave blank to keep the current password." : "At least 8 characters."}
+      >
         <input
           name="password"
           type="password"
@@ -56,14 +59,14 @@ export function UserForm({
       </Field>
 
       <div>
-        <span className="mb-2 block text-xs font-bold uppercase tracking-wide text-ink-muted">
+        <span className="text-ink-muted mb-2 block text-xs font-bold tracking-wide uppercase">
           Role
         </span>
         <div className="grid gap-2 sm:grid-cols-2">
           {ROLES.map((role) => (
             <label
               key={role}
-              className="flex cursor-pointer items-start gap-2.5 rounded-lg border border-border p-3 has-[:checked]:border-brand has-[:checked]:bg-brand-tint"
+              className="border-border has-[:checked]:border-brand has-[:checked]:bg-brand-tint flex cursor-pointer items-start gap-2.5 rounded-lg border p-3"
             >
               <input
                 type="radio"
@@ -72,28 +75,28 @@ export function UserForm({
                 required
                 disabled={lockRole}
                 defaultChecked={defaults?.role ? defaults.role === role : role === "subscriber"}
-                className="mt-1 accent-brand"
+                className="accent-brand mt-1"
               />
               <span>
-                <span className="block text-sm font-bold text-ink">{ROLE_LABELS[role]}</span>
-                <span className="block text-xs text-ink-muted">{ROLE_DESCRIPTIONS[role]}</span>
+                <span className="text-ink block text-sm font-bold">{ROLE_LABELS[role]}</span>
+                <span className="text-ink-muted block text-xs">{ROLE_DESCRIPTIONS[role]}</span>
               </span>
             </label>
           ))}
         </div>
         {lockRole && (
-          <p className="mt-2 text-xs text-ink-soft">
+          <p className="text-ink-soft mt-2 text-xs">
             You can&apos;t change your own role. Ask another admin if this needs to change.
           </p>
         )}
       </div>
 
-      {state?.error && <p className="text-sm text-brand">{state.error}</p>}
+      {state?.error && <p className="text-brand text-sm">{state.error}</p>}
 
       <button
         type="submit"
         disabled={pending}
-        className="rounded-full bg-brand px-6 py-3 font-headline text-sm font-bold uppercase tracking-wide text-white transition hover:bg-brand-ink disabled:opacity-60"
+        className="bg-brand font-headline hover:bg-brand-ink rounded-full px-6 py-3 text-sm font-bold tracking-wide text-white uppercase transition disabled:opacity-60"
       >
         {pending ? "Saving..." : submitLabel}
       </button>
@@ -112,11 +115,11 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-1 block text-xs font-bold uppercase tracking-wide text-ink-muted">
+      <span className="text-ink-muted mb-1 block text-xs font-bold tracking-wide uppercase">
         {label}
       </span>
       {children}
-      {hint && <span className="mt-1 block text-xs text-ink-soft">{hint}</span>}
+      {hint && <span className="text-ink-soft mt-1 block text-xs">{hint}</span>}
     </label>
   );
 }

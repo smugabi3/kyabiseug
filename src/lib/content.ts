@@ -18,7 +18,12 @@ export function toHtmlParagraphs(text: string) {
 export function htmlToPlainParagraphs(html: string) {
   return html
     .split(/<\/p>/)
-    .map((p) => p.replace(/<p>/g, "").replace(/<br\/?>/g, "\n").trim())
+    .map((p) =>
+      p
+        .replace(/<p>/g, "")
+        .replace(/<br\/?>/g, "\n")
+        .trim()
+    )
     .filter(Boolean)
     .map((p) => p.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&"))
     .join("\n\n");

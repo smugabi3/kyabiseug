@@ -7,11 +7,7 @@ import { canManageAllArticles, canManageOwnArticles } from "@/lib/roles";
 import { updateArticleAction } from "@/lib/admin-actions";
 import { htmlToPlainParagraphs } from "@/lib/content";
 
-export default async function EditArticlePage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function EditArticlePage({ params }: { params: Promise<{ id: string }> }) {
   const user = await getCurrentUser();
   if (!user) redirect("/admin/login");
   if (!canManageOwnArticles(user.role)) redirect("/admin");
@@ -32,7 +28,7 @@ export default async function EditArticlePage({
   return (
     <AdminShell user={user} active="other">
       <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
-        <h1 className="mb-8 font-headline text-3xl font-extrabold uppercase tracking-tight text-ink">
+        <h1 className="font-headline text-ink mb-8 text-3xl font-extrabold tracking-tight uppercase">
           Edit Article
         </h1>
         <ArticleForm

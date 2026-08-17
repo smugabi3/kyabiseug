@@ -48,13 +48,13 @@ export default async function CategoryPage({
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-10">
       <div className="mb-10 border-b-4 pb-4" style={{ borderColor: category.color }}>
         <h1
-          className="font-headline text-4xl font-extrabold uppercase tracking-tight sm:text-5xl"
+          className="font-headline text-4xl font-extrabold tracking-tight uppercase sm:text-5xl"
           style={{ color: category.color }}
         >
           {category.name}
         </h1>
         {category.description && (
-          <p className="mt-2 max-w-xl text-ink-muted">{category.description}</p>
+          <p className="text-ink-muted mt-2 max-w-xl">{category.description}</p>
         )}
       </div>
 
@@ -73,7 +73,7 @@ export default async function CategoryPage({
           <PageLink slug={slug} page={page - 1} disabled={page <= 1}>
             <ChevronLeft className="h-4 w-4" />
           </PageLink>
-          <span className="font-headline text-sm font-bold text-ink-muted">
+          <span className="font-headline text-ink-muted text-sm font-bold">
             Page {page} of {totalPages}
           </span>
           <PageLink slug={slug} page={page + 1} disabled={page >= totalPages}>
@@ -98,7 +98,7 @@ function PageLink({
 }) {
   if (disabled) {
     return (
-      <span className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-ink-soft/40">
+      <span className="border-border text-ink-soft/40 flex h-9 w-9 items-center justify-center rounded-full border">
         {children}
       </span>
     );
@@ -106,7 +106,7 @@ function PageLink({
   return (
     <Link
       href={`/category/${slug}?page=${page}`}
-      className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-ink transition hover:border-brand hover:text-brand"
+      className="border-border text-ink hover:border-brand hover:text-brand flex h-9 w-9 items-center justify-center rounded-full border transition"
     >
       {children}
     </Link>

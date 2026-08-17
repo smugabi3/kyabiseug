@@ -8,14 +8,11 @@ import { getCategories, getBreakingHeadlines } from "@/lib/data";
 import { longDate } from "@/lib/utils";
 
 export async function SiteHeader() {
-  const [categories, breaking] = await Promise.all([
-    getCategories(),
-    getBreakingHeadlines(),
-  ]);
+  const [categories, breaking] = await Promise.all([getCategories(), getBreakingHeadlines()]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-surface/95 backdrop-blur">
-      <div className="hidden items-center justify-between border-b border-border px-4 py-1.5 text-xs text-ink-soft sm:flex sm:px-6 lg:px-10">
+    <header className="border-border bg-surface/95 sticky top-0 z-40 border-b backdrop-blur">
+      <div className="border-border text-ink-soft hidden items-center justify-between border-b px-4 py-1.5 text-xs sm:flex sm:px-6 lg:px-10">
         <span>{longDate(new Date())}</span>
         <div className="flex items-center gap-4">
           <Link href="/category/local" className="hover:text-brand">
@@ -32,26 +29,26 @@ export async function SiteHeader() {
           <MobileNav categories={categories} />
           <Logo tagline />
         </div>
-        <div className="hidden flex-1 max-w-sm md:block">
+        <div className="hidden max-w-sm flex-1 md:block">
           <SearchBox />
         </div>
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <Link
             href="#newsletter"
-            className="hidden rounded-full bg-brand px-4 py-2 font-headline text-xs font-bold uppercase tracking-wide text-white transition hover:bg-brand-ink sm:inline-block"
+            className="bg-brand font-headline hover:bg-brand-ink hidden rounded-full px-4 py-2 text-xs font-bold tracking-wide text-white uppercase transition sm:inline-block"
           >
             Subscribe
           </Link>
         </div>
       </div>
 
-      <nav className="hidden border-t border-border px-4 sm:px-6 lg:flex lg:px-10">
+      <nav className="border-border hidden border-t px-4 sm:px-6 lg:flex lg:px-10">
         <ul className="flex items-center gap-1">
           <li>
             <Link
               href="/"
-              className="block px-3 py-2.5 font-headline text-sm font-bold uppercase tracking-wide text-ink hover:text-brand"
+              className="font-headline text-ink hover:text-brand block px-3 py-2.5 text-sm font-bold tracking-wide uppercase"
             >
               Home
             </Link>
@@ -60,7 +57,7 @@ export async function SiteHeader() {
             <li key={c.slug}>
               <Link
                 href={`/category/${c.slug}`}
-                className="block px-3 py-2.5 font-headline text-sm font-bold uppercase tracking-wide text-ink hover:text-brand"
+                className="font-headline text-ink hover:text-brand block px-3 py-2.5 text-sm font-bold tracking-wide uppercase"
               >
                 {c.name}
               </Link>

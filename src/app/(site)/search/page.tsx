@@ -15,7 +15,7 @@ export default async function SearchPage({
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-10">
-      <h1 className="font-headline text-3xl font-extrabold uppercase tracking-tight text-ink sm:text-4xl">
+      <h1 className="font-headline text-ink text-3xl font-extrabold tracking-tight uppercase sm:text-4xl">
         Search
       </h1>
       <div className="mt-5 max-w-md">
@@ -23,14 +23,14 @@ export default async function SearchPage({
       </div>
 
       {q.trim() && (
-        <p className="mt-6 text-sm text-ink-muted">
+        <p className="text-ink-muted mt-6 text-sm">
           {results.length} result{results.length === 1 ? "" : "s"} for{" "}
-          <span className="font-semibold text-ink">&ldquo;{q}&rdquo;</span>
+          <span className="text-ink font-semibold">&ldquo;{q}&rdquo;</span>
         </p>
       )}
 
       {q.trim() && results.length === 0 && (
-        <p className="mt-10 text-ink-muted">
+        <p className="text-ink-muted mt-10">
           No stories matched your search. Try a different keyword.
         </p>
       )}

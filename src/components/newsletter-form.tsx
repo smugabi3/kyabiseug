@@ -23,20 +23,20 @@ export function NewsletterForm({ variant = "footer" }: { variant?: "footer" | "i
       }}
       className={cn("w-full", variant === "footer" ? "max-w-sm" : "max-w-md")}
     >
-      <div className="flex items-center gap-2 rounded-full border border-border bg-surface px-2 py-1.5">
-        <Mail className="ml-1.5 h-4 w-4 shrink-0 text-ink-soft" />
+      <div className="border-border bg-surface flex items-center gap-2 rounded-full border px-2 py-1.5">
+        <Mail className="text-ink-soft ml-1.5 h-4 w-4 shrink-0" />
         <input
           type="email"
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="you@example.com"
-          className="w-full min-w-0 bg-transparent text-sm text-ink outline-none placeholder:text-ink-soft"
+          className="text-ink placeholder:text-ink-soft w-full min-w-0 bg-transparent text-sm outline-none"
         />
         <button
           type="submit"
           disabled={pending}
-          className="shrink-0 rounded-full bg-brand px-4 py-1.5 font-headline text-xs font-bold uppercase tracking-wide text-white transition hover:bg-brand-ink disabled:opacity-60"
+          className="bg-brand font-headline hover:bg-brand-ink shrink-0 rounded-full px-4 py-1.5 text-xs font-bold tracking-wide text-white uppercase transition disabled:opacity-60"
         >
           {pending ? "..." : "Subscribe"}
         </button>

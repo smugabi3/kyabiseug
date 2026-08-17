@@ -18,12 +18,12 @@ export function VideoSection({ items }: { items: VideoArticle[] }) {
   const [main, ...rest] = items;
 
   return (
-    <section className="rounded-xl bg-ink-static px-5 py-8 text-white sm:px-8">
+    <section className="bg-ink-static rounded-xl px-5 py-8 text-white sm:px-8">
       <div className="mb-6 flex items-center gap-2 border-b-2 border-white/20 pb-2.5">
-        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand">
+        <span className="bg-brand flex h-6 w-6 items-center justify-center rounded-full">
           <Play className="ml-0.5 h-3 w-3 fill-current text-white" />
         </span>
-        <h2 className="font-headline text-xl font-extrabold uppercase tracking-tight sm:text-2xl">
+        <h2 className="font-headline text-xl font-extrabold tracking-tight uppercase sm:text-2xl">
           Watch &amp; Live
         </h2>
       </div>
@@ -39,12 +39,12 @@ export function VideoSection({ items }: { items: VideoArticle[] }) {
               className="object-cover transition duration-300 group-hover:scale-105"
             />
             <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-              <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brand shadow-lg transition group-hover:scale-110">
+              <span className="bg-brand flex h-14 w-14 items-center justify-center rounded-full shadow-lg transition group-hover:scale-110">
                 <Play className="ml-1 h-5 w-5 fill-current text-white" />
               </span>
             </div>
           </div>
-          <h3 className="mt-3 font-headline text-xl font-bold leading-tight group-hover:text-gold sm:text-2xl">
+          <h3 className="font-headline group-hover:text-gold mt-3 text-xl leading-tight font-bold sm:text-2xl">
             {main.title}
           </h3>
           <p className="mt-1.5 line-clamp-2 text-sm text-white/70">{main.dek}</p>
@@ -65,7 +65,7 @@ export function VideoSection({ items }: { items: VideoArticle[] }) {
               <div className="min-w-0">
                 <CategoryBadge slug={item.category.slug} name={item.category.name} />
                 <Link href={`/article/${item.slug}`}>
-                  <h4 className="mt-1 line-clamp-2 font-headline text-sm font-bold leading-snug group-hover:text-gold">
+                  <h4 className="font-headline group-hover:text-gold mt-1 line-clamp-2 text-sm leading-snug font-bold">
                     {item.title}
                   </h4>
                 </Link>
