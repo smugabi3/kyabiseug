@@ -65,6 +65,24 @@ model NewsletterSubscriber {
   createdAt DateTime @default(now())
 }
 
+model PageView {
+  id            String   @id @default(cuid())
+  path          String
+  country       String?
+  countryRegion String?
+  city          String?
+  // Hostname the visitor arrived from, e.g. "google.com" — null means no referrer
+  // (a direct visit or a private/blocked one). See lib/analytics.ts for how
+  // `source` groups this into direct / search / social / internal / other.
+  referrer      String?
+  source        String
+  createdAt     DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([country])
+  @@index([path])
+}
+
 model User {
   id            String    @id @default(cuid())
   name          String

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ArticleCard } from "@/components/article-card";
 import { SearchBox } from "@/components/search-box";
 import { searchArticles } from "@/lib/data";
+import { recordPageView } from "@/lib/analytics";
 
 export const metadata: Metadata = { title: "Search" };
 
@@ -11,6 +12,7 @@ export default async function SearchPage({
   searchParams: Promise<{ q?: string }>;
 }) {
   const { q = "" } = await searchParams;
+  await recordPageView("/search");
   const results = q.trim() ? await searchArticles(q) : [];
 
   return (

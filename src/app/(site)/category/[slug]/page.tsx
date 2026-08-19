@@ -8,6 +8,7 @@ import {
   getCategoryBySlug,
 } from "@/lib/data";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { recordPageView } from "@/lib/analytics";
 
 const PAGE_SIZE = 12;
 
@@ -36,6 +37,7 @@ export default async function CategoryPage({
   const { page: pageParam } = await searchParams;
   const category = await getCategoryBySlug(slug);
   if (!category) notFound();
+  await recordPageView(`/category/${slug}`);
 
   const page = Math.max(1, Number(pageParam) || 1);
   const [articles, total] = await Promise.all([

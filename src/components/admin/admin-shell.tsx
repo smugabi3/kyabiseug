@@ -9,7 +9,7 @@ import {
   ROLE_LABELS,
   type Role,
 } from "@/lib/roles";
-import { LayoutDashboard, Mail, Plus, Users as UsersIcon } from "lucide-react";
+import { BarChart3, LayoutDashboard, Mail, Plus, Users as UsersIcon } from "lucide-react";
 
 export function AdminShell({
   user,
@@ -17,7 +17,7 @@ export function AdminShell({
   children,
 }: {
   user: { name: string; email: string; role: string; isSuperAdmin?: boolean };
-  active: "dashboard" | "users" | "subscribers" | "other";
+  active: "dashboard" | "users" | "subscribers" | "analytics" | "other";
   children: React.ReactNode;
 }) {
   const role = user.role as Role;
@@ -48,6 +48,15 @@ export function AdminShell({
           icon={<Mail className="h-4 w-4" />}
         >
           Subscribers
+        </ShellLink>
+      )}
+      {user.isSuperAdmin && (
+        <ShellLink
+          href="/admin/analytics"
+          active={active === "analytics"}
+          icon={<BarChart3 className="h-4 w-4" />}
+        >
+          Analytics
         </ShellLink>
       )}
       {canManageOwnArticles(role) && (

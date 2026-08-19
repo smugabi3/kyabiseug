@@ -8,6 +8,7 @@ import { CommentSection } from "@/components/comment-section";
 import { getArticleBySlug, getRelatedArticles, incrementViews } from "@/lib/data";
 import { longDate, readingTime } from "@/lib/utils";
 import { MapPin, Clock } from "lucide-react";
+import { recordPageView } from "@/lib/analytics";
 
 export async function generateMetadata({
   params,
@@ -35,6 +36,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   if (!article) notFound();
 
   incrementViews(article.id).catch(() => {});
+  await recordPageView(`/article/${slug}`);
 
   const related = await getRelatedArticles(article.categoryId, article.id, 4);
   const embedUrl = article.videoUrl

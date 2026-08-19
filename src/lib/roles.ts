@@ -64,3 +64,12 @@ export function canDeleteUser(actor: UserLike, target: UserLike) {
   if (target.isSuperAdmin) return false; // never deletable, even by itself
   return canModifyUser(actor, target);
 }
+
+/**
+ * Site traffic (visit counts, visitor locations, referral sources) is visible only
+ * to the super admin, not to regular admins — a deliberately narrower tier than
+ * canManageUsers/canViewSubscribers, which any admin can already see.
+ */
+export function canViewAnalytics(user: { isSuperAdmin: boolean }) {
+  return user.isSuperAdmin;
+}

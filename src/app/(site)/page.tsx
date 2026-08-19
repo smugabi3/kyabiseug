@@ -13,12 +13,14 @@ import {
 } from "@/lib/data";
 import { categoryColor } from "@/lib/categories";
 import { timeAgo } from "@/lib/utils";
+import { recordPageView } from "@/lib/analytics";
 
 // Rendered per-request rather than prerendered at build time: the homepage reflects
 // whatever editors have just published, and the build shouldn't need a live database.
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
+  await recordPageView("/");
   const categories = await getCategories();
   const [localArticles, trending, videos] = await Promise.all([
     getArticlesByCategorySlug("local", { take: 6 }),
