@@ -43,13 +43,17 @@ override is **Root Directory** (Settings → Build and Deployment) — that must
    `openssl rand -base64 32`. Also **required**: the app refuses to sign sessions
    without it, since the development fallback is public in this repo. Optionally add
    the two `MAILCHIMP_*` variables.
-3. Run the migrations and seed against the production database once, from your machine:
+3. Provision Blob storage (Storage → Create Database → Blob) for article cover image
+   uploads. Vercel injects `BLOB_READ_WRITE_TOKEN` automatically. Without it, uploads
+   are refused in production rather than silently failing to persist — the site still
+   works, editors just can't attach a cover image until this is set up.
+4. Run the migrations and seed against the production database once, from your machine:
    ```bash
    DATABASE_URL="<production-url>" npx prisma migrate deploy
    DATABASE_URL="<production-url>" npm run db:seed
    DATABASE_URL="<production-url>" npm run admin:create
    ```
-4. Redeploy after changing any of the above — settings changes alone don't rebuild.
+5. Redeploy after changing any of the above — settings changes alone don't rebuild.
 
 ### Troubleshooting 404s
 
@@ -59,6 +63,7 @@ override is **Root Directory** (Settings → Build and Deployment) — that must
 | Site redirects to a Vercel login page | Deployment Protection is on. Turn it off for Production. |
 | `/admin/login` works but every other page 500s | `DATABASE_URL` is missing or unreachable. That login page is the only one that doesn't query the database, so this pattern points squarely at the database rather than the app. |
 | Only `/article/<slug>` 404s | That article genuinely doesn't exist, or the database hasn't been seeded. |
+| Cover image upload fails with "not configured on this deployment" | `BLOB_READ_WRITE_TOKEN` isn't set. Provision Blob storage (Storage → Create Database → Blob) and redeploy. |
 
 Category pages are deliberately resilient: the seven sections are structural constants,
 so `/category/sports` renders an empty section rather than 404ing when the database has
@@ -88,6 +93,10 @@ MAILCHIMP_AUDIENCE_ID=""
 
 # Session signing secret — set a long random value before deploying to production.
 SESSION_SECRET=""
+
+# Vercel Blob (optional locally) — article cover image uploads. Without it, uploads
+# fall back to public/uploads/ locally (dev only) and are refused in production.
+BLOB_READ_WRITE_TOKEN=""
 ```
 
 ## Roles

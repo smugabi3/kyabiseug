@@ -6,6 +6,7 @@ import { canManageAllArticles, canManageOwnArticles } from "@/lib/roles";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { slugify, toHtmlParagraphs } from "@/lib/content";
+import { uploadCoverImage } from "@/lib/upload";
 
 /** Coarse gate: must be logged in at all. Returns the fresh user record. */
 async function requireUser() {
@@ -42,7 +43,10 @@ export async function logoutAction() {
   redirect("/admin/login");
 }
 
-export async function createArticleAction(formData: FormData) {
+export async function createArticleAction(
+  _prevState: { error?: string } | undefined,
+  formData: FormData
+): Promise<{ error?: string }> {
   const user = await requireArticleAccess();
 
   const title = String(formData.get("title") ?? "").trim();
@@ -52,18 +56,27 @@ export async function createArticleAction(formData: FormData) {
   const author = String(formData.get("author") ?? "").trim();
   const location = String(formData.get("location") ?? "").trim();
   const tags = String(formData.get("tags") ?? "").trim();
-  const coverImage = String(formData.get("coverImage") ?? "").trim();
+  const coverImageFile = formData.get("coverImageFile");
   const videoUrl = String(formData.get("videoUrl") ?? "").trim();
   const isBreaking = formData.get("isBreaking") === "on";
   const isFeatured = formData.get("isFeatured") === "on";
   const isVideo = formData.get("isVideo") === "on";
   const published = formData.get("published") === "on";
 
-  if (!title || !dek || !contentRaw || !categoryId || !author) return;
+  if (!title || !dek || !contentRaw || !categoryId || !author) {
+    return { error: "Please fill in all required fields." };
+  }
 
   let slug = slugify(title);
   const existing = await prisma.article.findUnique({ where: { slug } });
   if (existing) slug = `${slug}-${Date.now().toString(36)}`;
+
+  let coverImage = `https://picsum.photos/seed/${slug}/1200/800`;
+  if (coverImageFile instanceof File && coverImageFile.size > 0) {
+    const result = await uploadCoverImage(coverImageFile, slug);
+    if ("error" in result) return { error: result.error };
+    coverImage = result.url;
+  }
 
   await prisma.article.create({
     data: {
@@ -76,7 +89,7 @@ export async function createArticleAction(formData: FormData) {
       authorId: user.id,
       location: location || null,
       tags: tags || null,
-      coverImage: coverImage || `https://picsum.photos/seed/${slug}/1200/800`,
+      coverImage,
       videoUrl: isVideo && videoUrl ? videoUrl : null,
       isBreaking,
       isFeatured,
@@ -90,11 +103,15 @@ export async function createArticleAction(formData: FormData) {
   redirect("/admin");
 }
 
-export async function updateArticleAction(id: string, formData: FormData) {
+export async function updateArticleAction(
+  id: string,
+  _prevState: { error?: string } | undefined,
+  formData: FormData
+): Promise<{ error?: string }> {
   const user = await requireArticleAccess();
 
   const article = await prisma.article.findUnique({ where: { id } });
-  if (!article) return;
+  if (!article) return { error: "That article no longer exists." };
 
   // Authors may only touch their own bylined work; editors and admins may touch any.
   if (!canManageAllArticles(user.role) && article.authorId !== user.id) {
@@ -108,14 +125,23 @@ export async function updateArticleAction(id: string, formData: FormData) {
   const author = String(formData.get("author") ?? "").trim();
   const location = String(formData.get("location") ?? "").trim();
   const tags = String(formData.get("tags") ?? "").trim();
-  const coverImage = String(formData.get("coverImage") ?? "").trim();
+  const coverImageFile = formData.get("coverImageFile");
   const videoUrl = String(formData.get("videoUrl") ?? "").trim();
   const isBreaking = formData.get("isBreaking") === "on";
   const isFeatured = formData.get("isFeatured") === "on";
   const isVideo = formData.get("isVideo") === "on";
   const published = formData.get("published") === "on";
 
-  if (!title || !dek || !contentRaw || !categoryId || !author) return;
+  if (!title || !dek || !contentRaw || !categoryId || !author) {
+    return { error: "Please fill in all required fields." };
+  }
+
+  let coverImage = article.coverImage;
+  if (coverImageFile instanceof File && coverImageFile.size > 0) {
+    const result = await uploadCoverImage(coverImageFile, article.slug);
+    if ("error" in result) return { error: result.error };
+    coverImage = result.url;
+  }
 
   await prisma.article.update({
     where: { id },
@@ -127,7 +153,7 @@ export async function updateArticleAction(id: string, formData: FormData) {
       author,
       location: location || null,
       tags: tags || null,
-      coverImage: coverImage || article.coverImage,
+      coverImage,
       videoUrl: isVideo && videoUrl ? videoUrl : null,
       isBreaking,
       isFeatured,

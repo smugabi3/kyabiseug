@@ -56,3 +56,6 @@ skills-lock.json
 
 # local embedded postgres (dev only)
 .local-pg-data/
+
+# local-only cover image uploads (dev fallback when Blob storage isn't configured)
+/public/uploads/

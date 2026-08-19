@@ -1,3 +1,8 @@
+"use client";
+
+import { useActionState } from "react";
+import { CoverImageInput } from "@/components/admin/cover-image-input";
+
 type Category = { id: string; name: string };
 
 type ArticleDefaults = {
@@ -16,6 +21,11 @@ type ArticleDefaults = {
   published: boolean;
 };
 
+type Action = (
+  prevState: { error?: string } | undefined,
+  formData: FormData
+) => Promise<{ error?: string }>;
+
 export function ArticleForm({
   categories,
   action,
@@ -23,10 +33,12 @@ export function ArticleForm({
   submitLabel,
 }: {
   categories: Category[];
-  action: (formData: FormData) => void;
+  action: Action;
   defaults?: Partial<ArticleDefaults>;
   submitLabel: string;
 }) {
+  const [state, formAction, pending] = useActionState(action, undefined);
+
   const d: ArticleDefaults = {
     title: "",
     dek: "",
@@ -45,7 +57,7 @@ export function ArticleForm({
   };
 
   return (
-    <form action={action} className="space-y-6">
+    <form action={formAction} className="space-y-6">
       <Field label="Title">
         <input
           name="title"
@@ -97,13 +109,17 @@ export function ArticleForm({
         <Field label="Tags" hint="Comma separated">
           <input name="tags" defaultValue={d.tags} className="input" />
         </Field>
-        <Field label="Cover Image URL" hint="Leave blank to auto-generate">
-          <input name="coverImage" defaultValue={d.coverImage} className="input" />
-        </Field>
         <Field label="Video Embed URL" hint="Used when 'Video story' is checked">
           <input name="videoUrl" defaultValue={d.videoUrl} className="input" />
         </Field>
       </div>
+
+      <Field
+        label="Cover Image"
+        hint="JPG, PNG, WEBP or GIF, up to 8MB. Leave blank to keep the current image (or auto-generate one for a new article)."
+      >
+        <CoverImageInput name="coverImageFile" currentImageUrl={d.coverImage || undefined} />
+      </Field>
 
       <div className="flex flex-wrap gap-6">
         <Checkbox name="isBreaking" label="Breaking" defaultChecked={d.isBreaking} />
@@ -112,11 +128,14 @@ export function ArticleForm({
         <Checkbox name="published" label="Published" defaultChecked={d.published} />
       </div>
 
+      {state?.error && <p className="text-brand text-sm">{state.error}</p>}
+
       <button
         type="submit"
-        className="bg-brand font-headline hover:bg-brand-ink rounded-full px-6 py-3 text-sm font-bold tracking-wide text-white uppercase transition"
+        disabled={pending}
+        className="bg-brand font-headline hover:bg-brand-ink rounded-full px-6 py-3 text-sm font-bold tracking-wide text-white uppercase transition disabled:opacity-60"
       >
-        {submitLabel}
+        {pending ? "Saving..." : submitLabel}
       </button>
     </form>
   );
