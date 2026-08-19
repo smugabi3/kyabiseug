@@ -12,6 +12,12 @@ export const CATEGORY_DEFS = [
     color: "#1E5AA8",
   },
   {
+    slug: "business",
+    name: "Business",
+    description: "Markets, trade, banking and Uganda's economy.",
+    color: "#B45309",
+  },
+  {
     slug: "sports",
     name: "Sports",
     description: "Football, athletics and Ugandan sport on the world stage.",

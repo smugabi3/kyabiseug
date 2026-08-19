@@ -229,6 +229,103 @@ const international: SeedArticle[] = [
   },
 ];
 
+const business: SeedArticle[] = [
+  {
+    slug: "uganda-shilling-steadies-central-bank-intervention",
+    title: "Uganda Shilling Steadies After Central Bank Intervention",
+    dek: "The Bank of Uganda sold dollars on the interbank market to curb a slide that had pushed the shilling to its weakest level in over a year.",
+    content: p(
+      "The Ugandan shilling steadied against the US dollar on Thursday after the Bank of Uganda intervened in the interbank foreign exchange market, dealers said, halting a slide that had pushed the currency to its weakest level in more than a year.",
+      'A central bank spokesperson confirmed the intervention but declined to disclose the volume of dollars sold. "Our objective is orderly market conditions, not defending a particular exchange rate," the spokesperson said.',
+      "Analysts attributed the earlier pressure on the shilling to seasonal dollar demand from importers and businesses settling end-of-quarter obligations, combined with reduced inflows from coffee exports during the off-season.",
+      "The shilling has weakened by roughly 4 percent against the dollar so far this year, broadly in line with other regional currencies."
+    ),
+    author: "Moses Tumwine",
+    location: "Kampala",
+    tags: "shilling,central bank,currency,economy",
+    isBreaking: true,
+    isFeatured: true,
+    daysAgo: 0,
+    views: 3410,
+  },
+  {
+    slug: "coffee-exports-record-value-rising-prices",
+    title: "Coffee Exports Hit Record Value Amid Rising Global Prices",
+    dek: "Uganda earned more from coffee in the last financial year than ever before, driven by a global supply crunch that has pushed prices to decade highs.",
+    content: p(
+      "Uganda's coffee export earnings hit a record high in the last financial year, the Uganda Coffee Development Authority said, as a global supply crunch pushed international prices to their highest levels in over a decade.",
+      "Export volumes grew modestly, but it was the sharp rise in world prices that drove earnings up by nearly a third compared to the previous year, cementing coffee's position as Uganda's single largest export earner.",
+      '"Farmers are finally seeing prices that reflect the real cost and effort of growing quality coffee," said a UCDA official, while cautioning that smallholder farmers have not always captured the full benefit of the price rally.',
+      "Industry players are now pushing for expanded value-addition, arguing that exporting more roasted and processed coffee rather than raw beans would capture significantly more value locally."
+    ),
+    author: "Sarah Nakato",
+    tags: "coffee,exports,agriculture,trade",
+    daysAgo: 1,
+    views: 2240,
+  },
+  {
+    slug: "kampala-stock-exchange-new-listing",
+    title: "Kampala Stock Exchange Welcomes Newest Listed Company",
+    dek: "An agribusiness processing firm became the latest company to list on the USE, in a move officials hope will encourage more local firms to go public.",
+    content: p(
+      "The Uganda Securities Exchange welcomed its newest listed company this week, as an agribusiness processing firm completed an initial public offering that was oversubscribed by local and regional investors.",
+      "The listing is only the exchange's latest in several years, reflecting the slow pace at which Ugandan companies have historically turned to public markets for capital, typically preferring bank loans or private equity instead.",
+      '"Every new listing helps deepen our capital markets and gives ordinary Ugandans a way to own a stake in companies they interact with every day," a USE official said at the listing ceremony.',
+      "Market watchers say tax incentives for newly listed companies and growing interest from pension funds could encourage more firms to follow suit over the next few years."
+    ),
+    author: "David Okello",
+    location: "Kampala",
+    tags: "stock exchange,USE,investment,markets",
+    daysAgo: 2,
+    views: 1180,
+  },
+  {
+    slug: "local-banks-strong-half-year-profits",
+    title: "Local Banks Report Strong Half-Year Profits Despite Economic Headwinds",
+    dek: "Uganda's largest commercial banks posted double-digit profit growth, driven by higher lending volumes and income from government securities.",
+    content: p(
+      "Several of Uganda's largest commercial banks reported double-digit profit growth for the first half of the year, according to financial statements released this week, defying concerns about a broader economic slowdown.",
+      "Bank executives pointed to growing loan books, particularly in agriculture and small business lending, along with strong returns on government securities, as the main drivers of the improved earnings.",
+      '"We are seeing more businesses come to us for working capital as trade activity picks up," said one bank\'s chief finance officer during an investor briefing.',
+      "Non-performing loans remained broadly stable across the sector, though analysts cautioned that asset quality should be watched closely if interest rates stay elevated for an extended period."
+    ),
+    author: "Emmanuel Byaruhanga",
+    tags: "banking,profits,finance",
+    daysAgo: 3,
+    views: 1650,
+  },
+  {
+    slug: "uganda-rwanda-cross-border-trade-deal",
+    title: "Uganda, Rwanda Sign New Trade Deal to Boost Cross-Border Commerce",
+    dek: "The agreement simplifies customs procedures at key border posts, part of a broader push to normalise trade relations between the two countries.",
+    content: p(
+      "Uganda and Rwanda signed a new trade facilitation agreement this week aimed at simplifying customs procedures at the Katuna and Mirama Hills border posts, a further sign of warming trade relations between the two neighbours.",
+      "The deal is expected to cut clearance times for traders moving goods between the two countries, who have in recent years faced periodic border closures and stricter checks that disrupted commerce.",
+      '"Every day a truck sits at the border is money lost for a trader who is often operating on thin margins," said a Uganda Revenue Authority official involved in the negotiations.',
+      "Business associations on both sides of the border welcomed the agreement, though some traders said they would wait to see how consistently it is implemented before adjusting their supply chains."
+    ),
+    author: "Grace Auma",
+    tags: "trade,Rwanda,cross-border,customs",
+    daysAgo: 4,
+    views: 940,
+  },
+  {
+    slug: "tourism-revenue-rebounds-pre-pandemic",
+    title: "Tourism Revenue Rebounds to Pre-Pandemic Levels, Officials Say",
+    dek: "Earnings from tourism have fully recovered from the pandemic-era slump, driven by rising visitor numbers to national parks and a weaker shilling.",
+    content: p(
+      "Uganda's tourism sector has fully recovered from its pandemic-era collapse, with earnings surpassing pre-pandemic levels for the first time, the Uganda Tourism Board said in its latest sector report.",
+      "Visitor numbers to national parks, particularly for gorilla trekking permits in Bwindi Impenetrable Forest, have climbed steadily over the past two years, with operators reporting near-full bookings during peak season.",
+      '"A weaker shilling has, ironically, worked in our favour by making Uganda a more competitively priced destination for international visitors," a tourism board official said.',
+      "Industry players are now calling for continued investment in road access to key parks and additional flight connections, arguing that infrastructure remains the biggest constraint on further growth."
+    ),
+    author: "Ritah Namutebi",
+    tags: "tourism,economy,national parks",
+    daysAgo: 5,
+    views: 1370,
+  },
+];
+
 const sports: SeedArticle[] = [
   {
     slug: "uganda-cranes-world-cup-qualifier-winner",
@@ -713,6 +810,7 @@ const entertainment: SeedArticle[] = [
 const ALL: Record<string, SeedArticle[]> = {
   local,
   international,
+  business,
   sports,
   health,
   tech,
