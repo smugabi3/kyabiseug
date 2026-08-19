@@ -29,18 +29,18 @@ Visit `http://localhost:3000`. The newsroom dashboard lives at `/admin`.
 
 ## Deploying to Vercel
 
-**Project settings** (Settings → Build and Deployment):
-
-- **Framework Preset** must be **Next.js**. If it's set to "Other", Vercel serves the
-  project as a static site and every route returns 404 even though the build succeeds.
-- Leave Build/Install/Output commands on their defaults (no overrides).
+`vercel.json` pins the framework, build and install commands, so Vercel uses the
+Next.js builder regardless of what the dashboard preset says. One setting it *cannot*
+override is **Root Directory** (Settings → Build and Deployment) — that must be empty
+(the repo root), since `package.json` lives there.
 
 **Steps:**
 
 1. Provision Postgres (Storage → Create Database). Vercel injects `DATABASE_URL`
-   into the project automatically.
+   into the project automatically. **This is required** — every page reads from the
+   database, so without it the site returns server errors.
 2. Under Settings → Environment Variables, add `SESSION_SECRET` — generate it with
-   `openssl rand -base64 32`. This is **required**: the app refuses to serve sessions
+   `openssl rand -base64 32`. Also **required**: the app refuses to sign sessions
    without it, since the development fallback is public in this repo. Optionally add
    the two `MAILCHIMP_*` variables.
 3. Run the migrations and seed against the production database once, from your machine:
@@ -49,8 +49,19 @@ Visit `http://localhost:3000`. The newsroom dashboard lives at `/admin`.
    DATABASE_URL="<production-url>" npm run db:seed
    DATABASE_URL="<production-url>" npm run admin:create
    ```
-4. If the site redirects to a Vercel login page, turn off Settings → Deployment
-   Protection for Production (it's on by default for some plans).
+4. Redeploy after changing any of the above — settings changes alone don't rebuild.
+
+### Troubleshooting 404s
+
+| Symptom | Cause |
+|---|---|
+| Every route 404s with `x-vercel-error: NOT_FOUND` in the response headers | The request never reached the app. Vercel found no build output to route to — check Framework Preset is Next.js and Root Directory is empty, then redeploy. |
+| Site redirects to a Vercel login page | Deployment Protection is on. Turn it off for Production. |
+| Only `/article/<slug>` 404s | That article genuinely doesn't exist, or the database hasn't been seeded. |
+
+Category pages are deliberately resilient: the seven sections are structural constants,
+so `/category/sports` renders an empty section rather than 404ing when the database has
+no rows yet. Only an unrecognised slug 404s.
 
 `prisma generate` runs automatically on every install, and no page queries the database
 at build time, so deploys don't depend on the database being reachable during the build.
