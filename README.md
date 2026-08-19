@@ -55,8 +55,9 @@ override is **Root Directory** (Settings → Build and Deployment) — that must
 
 | Symptom | Cause |
 |---|---|
-| Every route 404s with `x-vercel-error: NOT_FOUND` in the response headers | The request never reached the app. Vercel found no build output to route to — check Framework Preset is Next.js and Root Directory is empty, then redeploy. |
+| Every route 404s with `x-vercel-error: NOT_FOUND` in the response headers, even `/admin/login` and files in `public/`, while builds report success | Vercel published an empty directory. A stale **Output Directory** override in the dashboard (typically left behind by the "Other" framework preset) pointed it away from the Next.js output. `vercel.json` now sets `"outputDirectory": null` to reset it — don't re-enable that override in the dashboard. |
 | Site redirects to a Vercel login page | Deployment Protection is on. Turn it off for Production. |
+| `/admin/login` works but every other page 500s | `DATABASE_URL` is missing or unreachable. That login page is the only one that doesn't query the database, so this pattern points squarely at the database rather than the app. |
 | Only `/article/<slug>` 404s | That article genuinely doesn't exist, or the database hasn't been seeded. |
 
 Category pages are deliberately resilient: the seven sections are structural constants,
