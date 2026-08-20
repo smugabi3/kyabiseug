@@ -63,6 +63,25 @@ model NewsletterSubscriber {
   id        String   @id @default(cuid())
   email     String   @unique
   createdAt DateTime @default(now())
+  /// Per-subscriber secret for one-click unsubscribe links. Defaulted in the
+  /// database so existing rows are backfilled automatically by the migration.
+  unsubscribeToken String @unique @default(cuid())
+}
+
+/// A sent newsletter, kept as a record of what went out and to how many people.
+model Newsletter {
+  id             String   @id @default(cuid())
+  subject        String
+  /// The composer's blocks, preserved so a past issue can be re-opened or copied.
+  blocks         Json
+  /// The rendered email exactly as delivered.
+  html           String
+  recipientCount Int      @default(0)
+  failedCount    Int      @default(0)
+  sentAt         DateTime @default(now())
+  sentByName     String
+
+  @@index([sentAt])
 }
 
 model PageView {

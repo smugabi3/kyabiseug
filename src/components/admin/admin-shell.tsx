@@ -5,6 +5,7 @@ import { logoutAction } from "@/lib/admin-actions";
 import {
   canManageOwnArticles,
   canManageUsers,
+  canSendNewsletter,
   canViewEnquiries,
   canViewSubscribers,
   ROLE_LABELS,
@@ -15,6 +16,7 @@ import {
   Inbox,
   LayoutDashboard,
   Mail,
+  Newspaper,
   Plus,
   Trophy,
   Users as UsersIcon,
@@ -24,7 +26,14 @@ import { NavBadge } from "@/components/admin/nav-badge";
 import type { AdminBadges } from "@/lib/notifications";
 
 export type AdminSection =
-  "dashboard" | "users" | "subscribers" | "enquiries" | "analytics" | "staff-ranking" | "other";
+  | "dashboard"
+  | "users"
+  | "subscribers"
+  | "enquiries"
+  | "newsletter"
+  | "analytics"
+  | "staff-ranking"
+  | "other";
 
 export function AdminShell({
   user,
@@ -103,6 +112,15 @@ export function AdminShell({
               badgeLabel="enquiries awaiting a reply"
             >
               Enquiries
+            </ShellLink>
+          )}
+          {canSendNewsletter(role) && (
+            <ShellLink
+              href="/admin/newsletter"
+              active={active === "newsletter"}
+              icon={<Newspaper className="h-4 w-4" />}
+            >
+              Newsletter
             </ShellLink>
           )}
           {user.isSuperAdmin && (

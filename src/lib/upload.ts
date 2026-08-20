@@ -38,6 +38,19 @@ function blobConfigured() {
  * up front.
  */
 export async function uploadCoverImage(file: File, slugHint: string): Promise<UploadResult> {
+  return uploadImage(file, slugHint, "articles");
+}
+
+/**
+ * Shared image upload used by article covers and newsletter bodies. `folder`
+ * keeps the two apart in Blob storage so newsletter images aren't mistaken for
+ * article assets when browsing the store.
+ */
+export async function uploadImage(
+  file: File,
+  slugHint: string,
+  folder: "articles" | "newsletter"
+): Promise<UploadResult> {
   const extension = ALLOWED_TYPES[file.type];
   if (!extension) {
     return { error: "Please upload a JPG, PNG, WEBP or GIF image." };
@@ -50,7 +63,7 @@ export async function uploadCoverImage(file: File, slugHint: string): Promise<Up
 
   if (blobConfigured()) {
     try {
-      const blob = await put(`articles/${filename}`, file, {
+      const blob = await put(`${folder}/${filename}`, file, {
         access: "public",
         addRandomSuffix: true,
       });

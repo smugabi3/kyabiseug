@@ -53,6 +53,14 @@ export function canViewEnquiries(role: string) {
   return role === "admin";
 }
 
+/**
+ * Sending a newsletter mails every subscriber and cannot be undone, so it stays
+ * with admins rather than everyone who can publish an article.
+ */
+export function canSendNewsletter(role: string) {
+  return role === "admin";
+}
+
 type UserLike = { id: string; isSuperAdmin: boolean };
 
 /**

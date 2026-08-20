@@ -7,8 +7,13 @@ import { addToMailchimp } from "@/lib/mailchimp";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function subscribeNewsletter(
-  email: string
+  rawEmail: string
 ): Promise<{ ok: boolean; message: string }> {
+  // Normalised before storing: the unique constraint is case-sensitive, so
+  // "Sam@x.com" and "sam@x.com" would otherwise become two subscribers and the
+  // same person would receive every newsletter twice.
+  const email = rawEmail.trim().toLowerCase();
+
   if (!EMAIL_RE.test(email)) {
     return { ok: false, message: "Please enter a valid email address." };
   }
