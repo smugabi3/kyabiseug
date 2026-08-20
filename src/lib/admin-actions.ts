@@ -1,7 +1,13 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { createSession, destroySession, getCurrentUser, verifyPassword } from "@/lib/auth";
+import {
+  createSession,
+  destroySession,
+  getCurrentUser,
+  refreshSession,
+  verifyPassword,
+} from "@/lib/auth";
 import { canManageAllArticles, canManageOwnArticles } from "@/lib/roles";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
@@ -41,6 +47,21 @@ export async function loginAction(
 export async function logoutAction() {
   await destroySession();
   redirect("/admin/login");
+}
+
+/** Ends the session and flags the login page to explain why. */
+export async function idleLogoutAction() {
+  await destroySession();
+  redirect("/admin/login?reason=idle");
+}
+
+/**
+ * Extends the rolling idle window for a user who is still active. Returns
+ * `{ alive: false }` once the session has lapsed so the browser can stop
+ * polling and send them to the login page.
+ */
+export async function heartbeatAction(): Promise<{ alive: boolean }> {
+  return { alive: await refreshSession() };
 }
 
 export async function createArticleAction(
