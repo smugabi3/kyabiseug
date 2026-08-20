@@ -102,7 +102,7 @@ export async function SiteFooter() {
       <div className="border-border border-t px-4 py-5 sm:px-6 lg:px-10">
         <div className="text-ink-soft mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 text-xs sm:flex-row">
           <p>&copy; {new Date().getFullYear()} KyabiseUG. All rights reserved.</p>
-          <p>Made in Kampala, Uganda.</p>
+          <p>Designed by SMK.</p>
         </div>
       </div>
     </footer>
