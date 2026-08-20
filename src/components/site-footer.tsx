@@ -69,6 +69,16 @@ export async function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link href="/privacy" className="hover:text-brand">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link href="/terms" className="hover:text-brand">
+                Terms &amp; Conditions
+              </Link>
+            </li>
+            <li>
               <Link href="/admin" className="hover:text-brand">
                 Staff Login
               </Link>
