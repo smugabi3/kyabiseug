@@ -5,7 +5,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { MobileNav } from "@/components/mobile-nav";
 import { BreakingTicker } from "@/components/breaking-ticker";
 import { getCategories, getBreakingHeadlines } from "@/lib/data";
-import { longDate } from "@/lib/utils";
+import { LiveClock } from "@/components/live-clock";
 
 export async function SiteHeader() {
   const [categories, breaking] = await Promise.all([getCategories(), getBreakingHeadlines()]);
@@ -13,7 +13,7 @@ export async function SiteHeader() {
   return (
     <header className="border-border bg-surface/95 sticky top-0 z-40 border-b backdrop-blur">
       <div className="border-border text-ink-soft hidden items-center justify-between border-b px-4 py-1.5 text-xs sm:flex sm:px-6 lg:px-10">
-        <span>{longDate(new Date())}</span>
+        <LiveClock />
         <div className="flex items-center gap-4">
           <Link href="/category/local" className="hover:text-brand">
             Kampala 26&deg;C
