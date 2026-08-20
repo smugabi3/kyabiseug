@@ -52,6 +52,12 @@ export default async function PrivacyPage() {
           you subscribed, solely to send you the KyabiseUG newsletter.
         </p>
         <p>
+          <strong>Contact and advertising enquiries.</strong> If you submit the form on our Contact
+          or Advertise page, we store what you enter — your name, email address, phone number, and
+          your message, plus your company, the type of enquiry and any budget on the advertising
+          form. This is stored so our team can read and reply to you, and is used for nothing else.
+        </p>
+        <p>
           <strong>Staff accounts.</strong> For editorial staff only, we store a name, an email
           address, an assigned role, and a password that is stored in hashed form (using bcrypt) and
           is never readable by us or anyone else.
@@ -125,6 +131,7 @@ export default async function PrivacyPage() {
             "Visit statistics are kept in aggregate to track readership trends over time. They contain no identifiers.",
             "Comments remain published with the article unless you ask us to remove them, or we remove them under our Terms.",
             "Newsletter addresses are kept until you unsubscribe or ask us to delete them.",
+            "Contact and advertising enquiries are kept while we deal with them and for a reasonable period afterwards as a record of the correspondence. You can ask us to delete yours at any time.",
             "Staff account records are kept while the account is active.",
           ]}
         />

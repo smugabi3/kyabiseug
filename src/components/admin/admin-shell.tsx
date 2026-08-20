@@ -5,12 +5,24 @@ import { logoutAction } from "@/lib/admin-actions";
 import {
   canManageOwnArticles,
   canManageUsers,
+  canViewEnquiries,
   canViewSubscribers,
   ROLE_LABELS,
   type Role,
 } from "@/lib/roles";
-import { BarChart3, LayoutDashboard, Mail, Plus, Trophy, Users as UsersIcon } from "lucide-react";
+import {
+  BarChart3,
+  Inbox,
+  LayoutDashboard,
+  Mail,
+  Plus,
+  Trophy,
+  Users as UsersIcon,
+} from "lucide-react";
 import { IdleLogout } from "@/components/admin/idle-logout";
+
+export type AdminSection =
+  "dashboard" | "users" | "subscribers" | "enquiries" | "analytics" | "staff-ranking" | "other";
 
 export function AdminShell({
   user,
@@ -18,75 +30,18 @@ export function AdminShell({
   children,
 }: {
   user: { name: string; email: string; role: string; isSuperAdmin?: boolean };
-  active: "dashboard" | "users" | "subscribers" | "analytics" | "staff-ranking" | "other";
+  active: AdminSection;
   children: React.ReactNode;
 }) {
   const role = user.role as Role;
   const roleLabel = user.isSuperAdmin ? "Super Admin" : (ROLE_LABELS[role] ?? role);
 
-  const links = (compact: boolean) => (
-    <>
-      <ShellLink
-        href="/admin"
-        active={active === "dashboard"}
-        icon={<LayoutDashboard className="h-4 w-4" />}
-      >
-        Dashboard
-      </ShellLink>
-      {canManageUsers(role) && (
-        <ShellLink
-          href="/admin/users"
-          active={active === "users"}
-          icon={<UsersIcon className="h-4 w-4" />}
-        >
-          Users
-        </ShellLink>
-      )}
-      {canViewSubscribers(role) && (
-        <ShellLink
-          href="/admin/subscribers"
-          active={active === "subscribers"}
-          icon={<Mail className="h-4 w-4" />}
-        >
-          Subscribers
-        </ShellLink>
-      )}
-      {user.isSuperAdmin && (
-        <ShellLink
-          href="/admin/analytics"
-          active={active === "analytics"}
-          icon={<BarChart3 className="h-4 w-4" />}
-        >
-          Analytics
-        </ShellLink>
-      )}
-      {user.isSuperAdmin && (
-        <ShellLink
-          href="/admin/staff-ranking"
-          active={active === "staff-ranking"}
-          icon={<Trophy className="h-4 w-4" />}
-        >
-          Ranking
-        </ShellLink>
-      )}
-      {canManageOwnArticles(role) && (
-        <ShellLink href="/admin/articles/new" active={false} icon={<Plus className="h-4 w-4" />}>
-          {compact ? "New" : "New Article"}
-        </ShellLink>
-      )}
-    </>
-  );
-
   return (
     <div className="bg-surface-alt flex min-h-full flex-1 flex-col">
       <IdleLogout />
       <header className="border-border bg-surface border-b">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-10">
-          <div className="flex items-center gap-6">
-            <Logo />
-            <nav className="hidden items-center gap-1 sm:flex">{links(false)}</nav>
-          </div>
-
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 pt-3 pb-2 sm:px-6 lg:px-10">
+          <Logo />
           <div className="flex items-center gap-3">
             <div className="text-right leading-tight">
               <p className="text-ink text-sm font-semibold">{user.name}</p>
@@ -104,8 +59,71 @@ export function AdminShell({
           </div>
         </div>
 
-        <nav className="border-border flex items-center gap-1 overflow-x-auto border-t px-4 py-1.5 sm:hidden">
-          {links(true)}
+        {/* Nav sits on its own row so it can grow with the number of sections
+            without pushing the account controls onto a second line. Scrolls
+            horizontally rather than wrapping on narrow screens. */}
+        <nav className="mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto px-4 pb-2 sm:px-6 lg:px-10">
+          <ShellLink
+            href="/admin"
+            active={active === "dashboard"}
+            icon={<LayoutDashboard className="h-4 w-4" />}
+          >
+            Dashboard
+          </ShellLink>
+          {canManageUsers(role) && (
+            <ShellLink
+              href="/admin/users"
+              active={active === "users"}
+              icon={<UsersIcon className="h-4 w-4" />}
+            >
+              Users
+            </ShellLink>
+          )}
+          {canViewSubscribers(role) && (
+            <ShellLink
+              href="/admin/subscribers"
+              active={active === "subscribers"}
+              icon={<Mail className="h-4 w-4" />}
+            >
+              Subscribers
+            </ShellLink>
+          )}
+          {canViewEnquiries(role) && (
+            <ShellLink
+              href="/admin/enquiries"
+              active={active === "enquiries"}
+              icon={<Inbox className="h-4 w-4" />}
+            >
+              Enquiries
+            </ShellLink>
+          )}
+          {user.isSuperAdmin && (
+            <ShellLink
+              href="/admin/analytics"
+              active={active === "analytics"}
+              icon={<BarChart3 className="h-4 w-4" />}
+            >
+              Analytics
+            </ShellLink>
+          )}
+          {user.isSuperAdmin && (
+            <ShellLink
+              href="/admin/staff-ranking"
+              active={active === "staff-ranking"}
+              icon={<Trophy className="h-4 w-4" />}
+            >
+              Ranking
+            </ShellLink>
+          )}
+          {canManageOwnArticles(role) && (
+            <ShellLink
+              href="/admin/articles/new"
+              active={false}
+              icon={<Plus className="h-4 w-4" />}
+            >
+              New Article
+            </ShellLink>
+          )}
         </nav>
       </header>
 

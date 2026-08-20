@@ -48,6 +48,11 @@ export function canViewSubscribers(role: string) {
   return role === "admin";
 }
 
+/** Contact and advertising enquiries — commercial/reader mail, same tier as subscribers. */
+export function canViewEnquiries(role: string) {
+  return role === "admin";
+}
+
 type UserLike = { id: string; isSuperAdmin: boolean };
 
 /**

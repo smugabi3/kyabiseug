@@ -93,3 +93,29 @@ model User {
   createdAt     DateTime  @default(now())
   articles      Article[]
 }
+
+/// Submissions from the public Contact and Advertise forms. One table with a
+/// `kind` discriminator rather than two near-identical ones, since both are
+/// "someone wants a reply" and the newsroom reads them in a single list.
+model Enquiry {
+  id         String   @id @default(cuid())
+  /// "contact" | "advertise"
+  kind       String
+  name       String
+  email      String
+  phone      String?
+  /// Advertise only.
+  company    String?
+  /// Advertise only: "banner" | "sponsored-article" | "other".
+  advertType String?
+  /// Advertise only, free text — deliberately not a number, since enquiries
+  /// arrive as ranges, currencies, or "negotiable".
+  budget     String?
+  message    String
+  handled    Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  @@index([kind])
+  @@index([createdAt])
+  @@index([email])
+}
