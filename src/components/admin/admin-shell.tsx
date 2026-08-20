@@ -9,7 +9,8 @@ import {
   ROLE_LABELS,
   type Role,
 } from "@/lib/roles";
-import { BarChart3, LayoutDashboard, Mail, Plus, Users as UsersIcon } from "lucide-react";
+import { BarChart3, LayoutDashboard, Mail, Plus, Trophy, Users as UsersIcon } from "lucide-react";
+import { IdleLogout } from "@/components/admin/idle-logout";
 
 export function AdminShell({
   user,
@@ -17,7 +18,7 @@ export function AdminShell({
   children,
 }: {
   user: { name: string; email: string; role: string; isSuperAdmin?: boolean };
-  active: "dashboard" | "users" | "subscribers" | "analytics" | "other";
+  active: "dashboard" | "users" | "subscribers" | "analytics" | "staff-ranking" | "other";
   children: React.ReactNode;
 }) {
   const role = user.role as Role;
@@ -59,6 +60,15 @@ export function AdminShell({
           Analytics
         </ShellLink>
       )}
+      {user.isSuperAdmin && (
+        <ShellLink
+          href="/admin/staff-ranking"
+          active={active === "staff-ranking"}
+          icon={<Trophy className="h-4 w-4" />}
+        >
+          Ranking
+        </ShellLink>
+      )}
       {canManageOwnArticles(role) && (
         <ShellLink href="/admin/articles/new" active={false} icon={<Plus className="h-4 w-4" />}>
           {compact ? "New" : "New Article"}
@@ -69,6 +79,7 @@ export function AdminShell({
 
   return (
     <div className="bg-surface-alt flex min-h-full flex-1 flex-col">
+      <IdleLogout />
       <header className="border-border bg-surface border-b">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-10">
           <div className="flex items-center gap-6">
@@ -119,8 +130,8 @@ function ShellLink({
       href={href}
       className={
         active
-          ? "bg-brand font-headline flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-bold tracking-wide text-white uppercase"
-          : "font-headline text-ink-muted hover:text-brand flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 text-xs font-bold tracking-wide uppercase transition"
+          ? "bg-brand font-headline flex shrink-0 items-center gap-1.5 rounded-full px-3 py-2 text-xs font-bold tracking-wide text-white uppercase"
+          : "font-headline text-ink-muted hover:text-brand flex shrink-0 items-center gap-1.5 rounded-full px-3 py-2 text-xs font-bold tracking-wide uppercase transition"
       }
     >
       {icon}
