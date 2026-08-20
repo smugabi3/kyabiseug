@@ -5,14 +5,22 @@ import { canViewEnquiries } from "@/lib/roles";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { getAdminBadges } from "@/lib/notifications";
 import { toggleEnquiryHandledAction } from "@/lib/enquiry-actions";
-import { longDate } from "@/lib/utils";
-import { Inbox, Megaphone, Mail, Phone, Building2 } from "lucide-react";
+import { longDate, timeAgo } from "@/lib/utils";
+import { Inbox, Megaphone, Mail, Phone, Building2, ChevronDown } from "lucide-react";
 
 const ADVERT_TYPE_LABELS: Record<string, string> = {
   banner: "Advertising on the site",
   "sponsored-article": "Publishing an article",
   other: "Something else",
 };
+
+const SNIPPET_LENGTH = 100;
+
+/** Collapses whitespace and newlines so a multi-paragraph message still previews on one line. */
+function snippet(message: string) {
+  const flat = message.replace(/\s+/g, " ").trim();
+  return flat.length > SNIPPET_LENGTH ? `${flat.slice(0, SNIPPET_LENGTH).trimEnd()}…` : flat;
+}
 
 export default async function EnquiriesPage() {
   const user = await getCurrentUser();
@@ -40,7 +48,8 @@ export default async function EnquiriesPage() {
           Messages from the Contact and Advertise pages.{" "}
           {outstanding > 0 ? (
             <>
-              <strong className="text-ink">{outstanding}</strong> awaiting a reply.
+              <strong className="text-ink">{outstanding}</strong> awaiting a reply. Click any
+              message to open it.
             </>
           ) : (
             "Everything here has been handled."
@@ -56,93 +65,118 @@ export default async function EnquiriesPage() {
             </p>
           </div>
         ) : (
-          <ul className="mt-8 space-y-4">
+          <ul className="border-border bg-surface divide-border mt-8 divide-y overflow-hidden rounded-xl border">
             {enquiries.map((e) => (
-              <li
-                key={e.id}
-                className={
-                  e.handled
-                    ? "border-border bg-surface-alt rounded-xl border p-5 opacity-60"
-                    : "border-border bg-surface rounded-xl border p-5"
-                }
-              >
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <div className="flex flex-wrap items-center gap-2">
-                      {e.kind === "advertise" ? (
-                        <span className="bg-gold/20 text-gold-ink inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold">
-                          <Megaphone className="h-3 w-3" />
-                          Advertising
-                        </span>
-                      ) : (
-                        <span className="bg-cat-tech/10 text-cat-tech inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold">
-                          <Mail className="h-3 w-3" />
-                          Contact
-                        </span>
-                      )}
-                      <span className="text-ink font-semibold">{e.name}</span>
-                      {e.handled && (
-                        <span className="text-ink-soft text-xs font-bold uppercase">Handled</span>
-                      )}
-                    </div>
+              <li key={e.id}>
+                {/* Native <details> gives click-to-open and keyboard support with no
+                    client-side JavaScript, which keeps this a Server Component. */}
+                <details className="group">
+                  <summary
+                    className={
+                      "hover:bg-surface-alt flex cursor-pointer list-none items-center gap-3 px-4 py-3 transition [&::-webkit-details-marker]:hidden " +
+                      (e.handled ? "opacity-60" : "")
+                    }
+                  >
+                    {/* Unread-style dot: solid while outstanding, hollow once handled. */}
+                    <span
+                      aria-hidden="true"
+                      className={
+                        e.handled
+                          ? "border-ink-soft/40 h-2 w-2 shrink-0 rounded-full border"
+                          : "bg-brand h-2 w-2 shrink-0 rounded-full"
+                      }
+                    />
 
-                    <div className="text-ink-muted mt-2 flex flex-wrap gap-x-4 gap-y-1 text-xs">
-                      <a
-                        href={`mailto:${e.email}`}
-                        className="hover:text-brand flex items-center gap-1"
-                      >
-                        <Mail className="h-3 w-3" />
-                        {e.email}
-                      </a>
-                      {e.phone && (
+                    {e.kind === "advertise" ? (
+                      <Megaphone className="text-gold-ink h-3.5 w-3.5 shrink-0" />
+                    ) : (
+                      <Mail className="text-cat-tech h-3.5 w-3.5 shrink-0" />
+                    )}
+
+                    <span
+                      className={
+                        "w-32 shrink-0 truncate text-sm sm:w-40 " +
+                        (e.handled ? "text-ink-muted" : "text-ink font-semibold")
+                      }
+                    >
+                      {e.name}
+                    </span>
+
+                    <span className="text-ink-muted min-w-0 flex-1 truncate text-sm">
+                      {snippet(e.message)}
+                    </span>
+
+                    <span className="text-ink-soft hidden shrink-0 text-xs sm:block">
+                      {timeAgo(e.createdAt)}
+                    </span>
+
+                    <ChevronDown className="text-ink-soft h-4 w-4 shrink-0 transition group-open:rotate-180" />
+                  </summary>
+
+                  <div className="border-border bg-surface-alt border-t px-4 py-4">
+                    <div className="flex flex-wrap items-start justify-between gap-3">
+                      <div className="text-ink-muted flex flex-wrap gap-x-4 gap-y-1 text-xs">
                         <a
-                          href={`tel:${e.phone}`}
+                          href={`mailto:${e.email}`}
                           className="hover:text-brand flex items-center gap-1"
                         >
-                          <Phone className="h-3 w-3" />
-                          {e.phone}
+                          <Mail className="h-3 w-3" />
+                          {e.email}
                         </a>
-                      )}
-                      {e.company && (
-                        <span className="flex items-center gap-1">
-                          <Building2 className="h-3 w-3" />
-                          {e.company}
-                        </span>
-                      )}
+                        {e.phone && (
+                          <a
+                            href={`tel:${e.phone}`}
+                            className="hover:text-brand flex items-center gap-1"
+                          >
+                            <Phone className="h-3 w-3" />
+                            {e.phone}
+                          </a>
+                        )}
+                        {e.company && (
+                          <span className="flex items-center gap-1">
+                            <Building2 className="h-3 w-3" />
+                            {e.company}
+                          </span>
+                        )}
+                      </div>
+
+                      <form action={toggleEnquiryHandledAction.bind(null, e.id)}>
+                        <button
+                          type="submit"
+                          className={
+                            e.handled
+                              ? "border-border text-ink-muted hover:border-brand hover:text-brand shrink-0 rounded-full border px-3 py-1.5 text-xs font-bold tracking-wide uppercase transition"
+                              : "bg-brand hover:bg-brand-ink shrink-0 rounded-full px-3 py-1.5 text-xs font-bold tracking-wide text-white uppercase transition"
+                          }
+                        >
+                          {e.handled ? "Reopen" : "Mark handled"}
+                        </button>
+                      </form>
                     </div>
-                  </div>
 
-                  <form action={toggleEnquiryHandledAction.bind(null, e.id)}>
-                    <button
-                      type="submit"
-                      className="border-border text-ink-muted hover:border-brand hover:text-brand shrink-0 rounded-full border px-3 py-1.5 text-xs font-bold tracking-wide uppercase transition"
-                    >
-                      {e.handled ? "Reopen" : "Mark handled"}
-                    </button>
-                  </form>
-                </div>
-
-                {(e.advertType || e.budget) && (
-                  <div className="text-ink-muted mt-3 flex flex-wrap gap-x-5 gap-y-1 text-xs">
-                    {e.advertType && (
-                      <span>
-                        <strong className="text-ink">Interested in:</strong>{" "}
-                        {ADVERT_TYPE_LABELS[e.advertType] ?? e.advertType}
-                      </span>
+                    {(e.advertType || e.budget) && (
+                      <div className="text-ink-muted mt-3 flex flex-wrap gap-x-5 gap-y-1 text-xs">
+                        {e.advertType && (
+                          <span>
+                            <strong className="text-ink">Interested in:</strong>{" "}
+                            {ADVERT_TYPE_LABELS[e.advertType] ?? e.advertType}
+                          </span>
+                        )}
+                        {e.budget && (
+                          <span>
+                            <strong className="text-ink">Budget:</strong> {e.budget}
+                          </span>
+                        )}
+                      </div>
                     )}
-                    {e.budget && (
-                      <span>
-                        <strong className="text-ink">Budget:</strong> {e.budget}
-                      </span>
-                    )}
+
+                    <p className="text-ink mt-4 text-sm leading-relaxed whitespace-pre-wrap">
+                      {e.message}
+                    </p>
+
+                    <p className="text-ink-soft mt-4 text-xs">{longDate(e.createdAt)}</p>
                   </div>
-                )}
-
-                <p className="text-ink-muted mt-3 text-sm leading-relaxed whitespace-pre-wrap">
-                  {e.message}
-                </p>
-
-                <p className="text-ink-soft mt-3 text-xs">{longDate(e.createdAt)}</p>
+                </details>
               </li>
             ))}
           </ul>
