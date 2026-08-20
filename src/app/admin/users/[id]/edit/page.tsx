@@ -3,12 +3,15 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { canManageUsers, canModifyUser } from "@/lib/roles";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { getAdminBadges } from "@/lib/notifications";
 import { UserForm } from "@/components/admin/user-form";
 import { updateUserAction } from "@/lib/user-actions";
 
 export default async function EditUserPage({ params }: { params: Promise<{ id: string }> }) {
   const user = await getCurrentUser();
   if (!user) redirect("/admin/login");
+
+  const badges = await getAdminBadges(user);
   if (!canManageUsers(user.role)) redirect("/admin");
 
   const { id } = await params;
@@ -20,7 +23,7 @@ export default async function EditUserPage({ params }: { params: Promise<{ id: s
   if (!canModifyUser(user, target)) redirect("/admin/users");
 
   return (
-    <AdminShell user={user} active="users">
+    <AdminShell user={user} active="users" badges={badges}>
       <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
         <h1 className="font-headline text-ink mb-2 text-3xl font-extrabold tracking-tight uppercase">
           Edit User

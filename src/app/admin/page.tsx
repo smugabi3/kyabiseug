@@ -3,18 +3,26 @@ import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { getAdminBadges } from "@/lib/notifications";
 import { deleteArticleAction, togglePublishAction } from "@/lib/admin-actions";
-import { canAccessNewsroom, canManageAllArticles, canManageUsers, ROLE_LABELS } from "@/lib/roles";
+import {
+  canAccessNewsroom,
+  canManageAllArticles,
+  canManageUsers,
+  canViewEnquiries,
+  ROLE_LABELS,
+} from "@/lib/roles";
 import { timeAgo } from "@/lib/utils";
-import { Eye, FileText, MessageCircle, Plus, Users } from "lucide-react";
+import { Eye, FileText, Inbox, MessageCircle, Plus, Users } from "lucide-react";
 
 export default async function AdminDashboard() {
   const user = await getCurrentUser();
   if (!user) redirect("/admin/login");
 
+  const badges = await getAdminBadges(user);
   if (!canAccessNewsroom(user.role)) {
     return (
-      <AdminShell user={user} active="dashboard">
+      <AdminShell user={user} active="dashboard" badges={badges}>
         <div className="mx-auto max-w-2xl px-4 py-16 text-center sm:px-6">
           <h1 className="font-headline text-ink text-3xl font-extrabold tracking-tight uppercase">
             Welcome, {user.name}
@@ -38,24 +46,32 @@ export default async function AdminDashboard() {
   const seeAll = canManageAllArticles(user.role);
   const articleWhere = seeAll ? {} : { authorId: user.id };
 
-  const [articles, articleCount, totalViewsAgg, commentCount, subscriberCount, teamCount] =
-    await Promise.all([
-      prisma.article.findMany({
-        where: articleWhere,
-        orderBy: { publishedAt: "desc" },
-        include: { category: true },
-      }),
-      prisma.article.count({ where: articleWhere }),
-      prisma.article.aggregate({ where: articleWhere, _sum: { views: true } }),
-      seeAll ? prisma.comment.count() : Promise.resolve(null),
-      seeAll ? prisma.newsletterSubscriber.count() : Promise.resolve(null),
-      canManageUsers(user.role) ? prisma.user.count() : Promise.resolve(null),
-    ]);
+  const [
+    articles,
+    articleCount,
+    totalViewsAgg,
+    commentCount,
+    subscriberCount,
+    teamCount,
+    enquiryCount,
+  ] = await Promise.all([
+    prisma.article.findMany({
+      where: articleWhere,
+      orderBy: { publishedAt: "desc" },
+      include: { category: true },
+    }),
+    prisma.article.count({ where: articleWhere }),
+    prisma.article.aggregate({ where: articleWhere, _sum: { views: true } }),
+    seeAll ? prisma.comment.count() : Promise.resolve(null),
+    seeAll ? prisma.newsletterSubscriber.count() : Promise.resolve(null),
+    canManageUsers(user.role) ? prisma.user.count() : Promise.resolve(null),
+    canViewEnquiries(user.role) ? prisma.enquiry.count() : Promise.resolve(null),
+  ]);
 
   const totalViews = totalViewsAgg._sum.views ?? 0;
 
   return (
-    <AdminShell user={user} active="dashboard">
+    <AdminShell user={user} active="dashboard" badges={badges}>
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-10">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
@@ -99,6 +115,21 @@ export default async function AdminDashboard() {
               icon={<Users className="h-4 w-4" />}
               label="Subscribers"
               value={subscriberCount}
+              note={badges.newSubscribers > 0 ? `${badges.newSubscribers} new` : undefined}
+              href="/admin/subscribers"
+            />
+          )}
+          {canViewEnquiries(user.role) && (
+            <StatCard
+              icon={<Inbox className="h-4 w-4" />}
+              label="Enquiries"
+              value={enquiryCount ?? 0}
+              note={
+                badges.unhandledEnquiries > 0
+                  ? `${badges.unhandledEnquiries} awaiting reply`
+                  : undefined
+              }
+              href="/admin/enquiries"
             />
           )}
           {teamCount !== null && (
@@ -175,16 +206,46 @@ export default async function AdminDashboard() {
   );
 }
 
-function StatCard({ icon, label, value }: { icon: React.ReactNode; label: string; value: number }) {
-  return (
-    <div className="border-border bg-surface rounded-xl border p-5">
+function StatCard({
+  icon,
+  label,
+  value,
+  note,
+  href,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: number;
+  /** Highlighted call-to-action, e.g. "3 awaiting reply". Omitted when zero. */
+  note?: string;
+  href?: string;
+}) {
+  const body = (
+    <>
       <div className="text-ink-soft flex items-center gap-2">
         {icon}
         <span className="text-xs font-bold tracking-wide uppercase">{label}</span>
+        {note && (
+          <span className="bg-brand ml-auto rounded-full px-2 py-0.5 text-[0.65rem] leading-none font-bold text-white">
+            {note}
+          </span>
+        )}
       </div>
       <p className="font-headline text-ink mt-2 text-3xl font-extrabold">
         {value.toLocaleString()}
       </p>
-    </div>
+    </>
+  );
+
+  const className = note
+    ? "border-brand bg-surface block rounded-xl border p-5"
+    : "border-border bg-surface block rounded-xl border p-5";
+
+  return href ? (
+    <Link href={href} className={`${className} hover:border-brand transition`}>
+      {body}
+    </Link>
+  ) : (
+    <div className={className}>{body}</div>
   );
 }

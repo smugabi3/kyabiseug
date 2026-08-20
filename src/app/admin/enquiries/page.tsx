@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { canViewEnquiries } from "@/lib/roles";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { getAdminBadges } from "@/lib/notifications";
 import { toggleEnquiryHandledAction } from "@/lib/enquiry-actions";
 import { longDate } from "@/lib/utils";
 import { Inbox, Megaphone, Mail, Phone, Building2 } from "lucide-react";
@@ -18,6 +19,10 @@ export default async function EnquiriesPage() {
   if (!user) redirect("/admin/login");
   if (!canViewEnquiries(user.role)) redirect("/admin");
 
+  // Not marked as "seen" on view: this badge counts outstanding work, so it
+  // should only clear when an enquiry is actually marked handled.
+  const badges = await getAdminBadges(user);
+
   const enquiries = await prisma.enquiry.findMany({
     orderBy: [{ handled: "asc" }, { createdAt: "desc" }],
     take: 200,
@@ -26,7 +31,7 @@ export default async function EnquiriesPage() {
   const outstanding = enquiries.filter((e) => !e.handled).length;
 
   return (
-    <AdminShell user={user} active="enquiries">
+    <AdminShell user={user} active="enquiries" badges={badges}>
       <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-10">
         <h1 className="font-headline text-ink text-3xl font-extrabold tracking-tight uppercase">
           Enquiries

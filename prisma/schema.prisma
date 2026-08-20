@@ -92,6 +92,22 @@ model User {
   isSuperAdmin  Boolean   @default(false)
   createdAt     DateTime  @default(now())
   articles      Article[]
+  sectionViews  SectionView[]
+}
+
+/// Records when a staff member last opened a given admin section, so "new since
+/// you last looked" badges can be per-person rather than shared. Kept in its own
+/// table (instead of columns on User) so new sections don't need a migration.
+model SectionView {
+  id       String   @id @default(cuid())
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   String
+  /// "subscribers" | "enquiries"
+  section  String
+  lastSeen DateTime @default(now())
+
+  @@unique([userId, section])
+  @@index([userId])
 }
 
 /// Submissions from the public Contact and Advertise forms. One table with a

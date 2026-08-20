@@ -20,6 +20,8 @@ import {
   Users as UsersIcon,
 } from "lucide-react";
 import { IdleLogout } from "@/components/admin/idle-logout";
+import { NavBadge } from "@/components/admin/nav-badge";
+import type { AdminBadges } from "@/lib/notifications";
 
 export type AdminSection =
   "dashboard" | "users" | "subscribers" | "enquiries" | "analytics" | "staff-ranking" | "other";
@@ -27,10 +29,12 @@ export type AdminSection =
 export function AdminShell({
   user,
   active,
+  badges,
   children,
 }: {
   user: { name: string; email: string; role: string; isSuperAdmin?: boolean };
   active: AdminSection;
+  badges?: AdminBadges;
   children: React.ReactNode;
 }) {
   const role = user.role as Role;
@@ -84,6 +88,8 @@ export function AdminShell({
               href="/admin/subscribers"
               active={active === "subscribers"}
               icon={<Mail className="h-4 w-4" />}
+              badge={badges?.newSubscribers}
+              badgeLabel="new subscribers"
             >
               Subscribers
             </ShellLink>
@@ -93,6 +99,8 @@ export function AdminShell({
               href="/admin/enquiries"
               active={active === "enquiries"}
               icon={<Inbox className="h-4 w-4" />}
+              badge={badges?.unhandledEnquiries}
+              badgeLabel="enquiries awaiting a reply"
             >
               Enquiries
             </ShellLink>
@@ -136,11 +144,15 @@ function ShellLink({
   href,
   active,
   icon,
+  badge,
+  badgeLabel,
   children,
 }: {
   href: string;
   active: boolean;
   icon: React.ReactNode;
+  badge?: number;
+  badgeLabel?: string;
   children: React.ReactNode;
 }) {
   return (
@@ -154,6 +166,9 @@ function ShellLink({
     >
       {icon}
       {children}
+      {badge !== undefined && (
+        <NavBadge count={badge} label={badgeLabel ?? "new"} onBrand={active} />
+      )}
     </Link>
   );
 }

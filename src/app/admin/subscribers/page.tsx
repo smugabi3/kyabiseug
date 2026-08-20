@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { canViewSubscribers } from "@/lib/roles";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { getAdminBadges, markSectionSeen } from "@/lib/notifications";
 import { isMailchimpConfigured } from "@/lib/mailchimp";
 import { longDate } from "@/lib/utils";
 import { Mail, CheckCircle2, AlertTriangle } from "lucide-react";
@@ -12,13 +13,20 @@ export default async function SubscribersPage() {
   if (!user) redirect("/admin/login");
   if (!canViewSubscribers(user.role)) redirect("/admin");
 
+  // Read the badge count and the newest-first cutoff *before* stamping the page
+  // as seen, otherwise opening it would clear the very thing it's meant to show.
+  const badges = await getAdminBadges(user);
+  const newSince = badges.newSubscribers;
+
   const subscribers = await prisma.newsletterSubscriber.findMany({
     orderBy: { createdAt: "desc" },
   });
   const mailchimpOn = isMailchimpConfigured();
 
+  await markSectionSeen(user.id, "subscribers");
+
   return (
-    <AdminShell user={user} active="subscribers">
+    <AdminShell user={user} active="subscribers" badges={badges}>
       <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-10">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
@@ -29,6 +37,12 @@ export default async function SubscribersPage() {
               {subscribers.length.toLocaleString()}{" "}
               {subscribers.length === 1 ? "person has" : "people have"} signed up for the KyabiseUG
               newsletter.
+              {newSince > 0 && (
+                <>
+                  {" "}
+                  <strong className="text-brand">{newSince} new since you last looked.</strong>
+                </>
+              )}
             </p>
           </div>
           {mailchimpOn ? (
@@ -60,11 +74,18 @@ export default async function SubscribersPage() {
                   </td>
                 </tr>
               )}
-              {subscribers.map((s) => (
+              {/* Newest first, so the first `newSince` rows are exactly the ones
+                  that arrived since this admin last opened the page. */}
+              {subscribers.map((s, i) => (
                 <tr key={s.id}>
                   <td className="text-ink flex items-center gap-2 px-4 py-3 font-medium">
                     <Mail className="text-ink-soft h-3.5 w-3.5" />
                     {s.email}
+                    {i < newSince && (
+                      <span className="bg-brand rounded-full px-2 py-0.5 text-[0.6rem] font-bold text-white uppercase">
+                        New
+                      </span>
+                    )}
                   </td>
                   <td className="text-ink-muted px-4 py-3">{longDate(s.createdAt)}</td>
                 </tr>

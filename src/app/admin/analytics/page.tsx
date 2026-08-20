@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { canViewAnalytics } from "@/lib/roles";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { getAdminBadges } from "@/lib/notifications";
 import { SOURCE_LABELS, type TrafficSource } from "@/lib/analytics";
 import { Eye, Globe2, MapPin } from "lucide-react";
 
@@ -26,6 +27,8 @@ function countryFlag(code: string | null): string {
 export default async function AnalyticsPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/admin/login");
+
+  const badges = await getAdminBadges(user);
   if (!canViewAnalytics(user)) redirect("/admin");
 
   const now = new Date();
@@ -77,7 +80,7 @@ export default async function AnalyticsPage() {
   const sourceTotal = bySource.reduce((sum, s) => sum + s._count._all, 0) || 1;
 
   return (
-    <AdminShell user={user} active="analytics">
+    <AdminShell user={user} active="analytics" badges={badges}>
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-10">
         <h1 className="font-headline text-ink text-3xl font-extrabold tracking-tight uppercase">
           Site Analytics

@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { canAccessNewsroom, canViewAnalytics, ROLE_LABELS, type Role } from "@/lib/roles";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { getAdminBadges } from "@/lib/notifications";
 import { Trophy, FileText, Eye, MousePointerClick } from "lucide-react";
 
 type StaffRow = {
@@ -20,6 +21,8 @@ const MEDALS = ["🥇", "🥈", "🥉"];
 export default async function StaffRankingPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/admin/login");
+
+  const badges = await getAdminBadges(user);
   if (!canViewAnalytics(user)) redirect("/admin");
 
   const [users, articles, viewsByPath] = await Promise.all([
@@ -78,7 +81,7 @@ export default async function StaffRankingPage() {
   const inactive = rows.filter((r) => r.articleCount === 0);
 
   return (
-    <AdminShell user={user} active="staff-ranking">
+    <AdminShell user={user} active="staff-ranking" badges={badges}>
       <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-10">
         <h1 className="font-headline text-ink text-3xl font-extrabold tracking-tight uppercase">
           Staff Ranking

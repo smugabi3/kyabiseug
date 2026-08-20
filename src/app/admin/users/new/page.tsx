@@ -2,16 +2,19 @@ import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth";
 import { canManageUsers } from "@/lib/roles";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { getAdminBadges } from "@/lib/notifications";
 import { UserForm } from "@/components/admin/user-form";
 import { createUserAction } from "@/lib/user-actions";
 
 export default async function NewUserPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/admin/login");
+
+  const badges = await getAdminBadges(user);
   if (!canManageUsers(user.role)) redirect("/admin");
 
   return (
-    <AdminShell user={user} active="users">
+    <AdminShell user={user} active="users" badges={badges}>
       <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6">
         <h1 className="font-headline text-ink mb-2 text-3xl font-extrabold tracking-tight uppercase">
           New User

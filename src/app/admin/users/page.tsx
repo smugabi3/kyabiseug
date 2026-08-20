@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUser } from "@/lib/auth";
 import { canDeleteUser, canManageUsers, canModifyUser, ROLE_LABELS, type Role } from "@/lib/roles";
 import { AdminShell } from "@/components/admin/admin-shell";
+import { getAdminBadges } from "@/lib/notifications";
 import { deleteUserAction } from "@/lib/user-actions";
 import { timeAgo } from "@/lib/utils";
 import { Pencil, Plus, ShieldCheck } from "lucide-react";
@@ -11,6 +12,8 @@ import { Pencil, Plus, ShieldCheck } from "lucide-react";
 export default async function UsersPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/admin/login");
+
+  const badges = await getAdminBadges(user);
   if (!canManageUsers(user.role)) redirect("/admin");
 
   const [users, articleCounts] = await Promise.all([
@@ -24,7 +27,7 @@ export default async function UsersPage() {
   const adminCount = users.filter((u) => u.role === "admin").length;
 
   return (
-    <AdminShell user={user} active="users">
+    <AdminShell user={user} active="users" badges={badges}>
       <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-10">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
