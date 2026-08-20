@@ -17,6 +17,11 @@
   --color-gold: #fcd116;
   --color-gold-ink: #8a6a00;
   --color-ink-static: #101112;
+  /* Admin sidebar chrome. Fixed values, not theme-swapped: the sidebar stays
+     dark in both light and dark mode, so its text contrast is constant. */
+  --color-sidebar: #1d2327;
+  --color-sidebar-hover: #2c3338;
+  --color-sidebar-text: #c3c4c7;
 
   --color-cat-local: #d21034;
   --color-cat-international: #1e5aa8;
@@ -58,6 +63,9 @@
   --color-gold: var(--color-gold);
   --color-gold-ink: var(--color-gold-ink);
   --color-ink-static: var(--color-ink-static);
+  --color-sidebar: var(--color-sidebar);
+  --color-sidebar-hover: var(--color-sidebar-hover);
+  --color-sidebar-text: var(--color-sidebar-text);
 
   --color-cat-local: var(--color-cat-local);
   --color-cat-international: var(--color-cat-international);
