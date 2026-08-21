@@ -28,17 +28,54 @@ async function requireArticleAccess() {
   return user;
 }
 
+/** Failed sign-ins allowed for one address before it is temporarily locked. */
+const MAX_LOGIN_ATTEMPTS = 5;
+const LOGIN_WINDOW_MINUTES = 15;
+
+/**
+ * A bcrypt hash of a value nobody knows, compared against when the email doesn't
+ * exist. Without it, a missing account returns instantly while a real one pays
+ * the cost of a bcrypt comparison — a timing difference that lets an attacker
+ * discover which staff addresses are real before guessing any passwords.
+ */
+const DUMMY_HASH = "$2b$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy";
+
 export async function loginAction(
   _prevState: { error?: string } | undefined,
   formData: FormData
 ): Promise<{ error?: string }> {
-  const email = String(formData.get("email") ?? "").trim();
+  // Accounts are stored lower-cased, so without normalising here a staff member
+  // whose keyboard capitalised the first letter would be told their correct
+  // password was wrong.
+  const email = String(formData.get("email") ?? "")
+    .trim()
+    .toLowerCase();
   const password = String(formData.get("password") ?? "");
 
+  if (!email || !password) return { error: "Invalid email or password." };
+
+  const since = new Date(Date.now() - LOGIN_WINDOW_MINUTES * 60 * 1000);
+  const recentFailures = await prisma.loginAttempt.count({
+    where: { email, createdAt: { gte: since } },
+  });
+
+  if (recentFailures >= MAX_LOGIN_ATTEMPTS) {
+    return {
+      error: `Too many failed attempts. Please wait ${LOGIN_WINDOW_MINUTES} minutes and try again.`,
+    };
+  }
+
   const user = await prisma.user.findUnique({ where: { email } });
-  if (!user || !(await verifyPassword(password, user.password))) {
+  const ok = await verifyPassword(password, user?.password ?? DUMMY_HASH);
+
+  if (!user || !ok) {
+    await prisma.loginAttempt.create({ data: { email } });
     return { error: "Invalid email or password." };
   }
+
+  // Clear the slate so an earlier fumbled password doesn't count against a
+  // legitimate user later in the day.
+  await prisma.loginAttempt.deleteMany({ where: { email } });
 
   await createSession(user.id);
   redirect("/admin");

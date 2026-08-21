@@ -20,7 +20,9 @@ const prisma = new PrismaClient({ adapter });
  */
 async function main() {
   const name = process.env.ADMIN_NAME;
-  const email = process.env.ADMIN_EMAIL;
+  // Lower-cased to match how the app stores and looks up every other account —
+  // an address saved with capitals here would be rejected at sign-in.
+  const email = process.env.ADMIN_EMAIL?.trim().toLowerCase();
   const password = process.env.ADMIN_PASSWORD;
 
   if (!name || !email || !password) {

@@ -28,6 +28,14 @@ export function CommentSection({
       >
         <input type="hidden" name="articleId" value={articleId} />
         <input type="hidden" name="slug" value={slug} />
+
+        {/* Honeypot: off-screen rather than display:none, which some bots skip. */}
+        <div aria-hidden="true" className="absolute left-[-9999px] h-0 w-0 overflow-hidden">
+          <label>
+            Website
+            <input name="website" type="text" tabIndex={-1} autoComplete="off" />
+          </label>
+        </div>
         <div className="grid gap-3 sm:grid-cols-2">
           <input
             name="name"

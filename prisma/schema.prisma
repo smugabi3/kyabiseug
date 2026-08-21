@@ -114,6 +114,17 @@ model User {
   sectionViews  SectionView[]
 }
 
+/// Failed sign-in attempts, used to throttle password guessing. Keyed by email
+/// rather than IP because this site deliberately stores no IP addresses — the
+/// Privacy Policy says so, and quietly logging them here would make that untrue.
+model LoginAttempt {
+  id        String   @id @default(cuid())
+  email     String
+  createdAt DateTime @default(now())
+
+  @@index([email, createdAt])
+}
+
 /// Records when a staff member last opened a given admin section, so "new since
 /// you last looked" badges can be per-person rather than shared. Kept in its own
 /// table (instead of columns on User) so new sections don't need a migration.
