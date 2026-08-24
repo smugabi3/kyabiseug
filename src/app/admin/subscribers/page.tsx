@@ -4,9 +4,8 @@ import { getCurrentUser } from "@/lib/auth";
 import { canViewSubscribers } from "@/lib/roles";
 import { AdminShell } from "@/components/admin/admin-shell";
 import { getAdminBadges, markSectionSeen } from "@/lib/notifications";
-import { isMailchimpConfigured } from "@/lib/mailchimp";
 import { longDate } from "@/lib/utils";
-import { Mail, CheckCircle2, AlertTriangle } from "lucide-react";
+import { Mail } from "lucide-react";
 
 export default async function SubscribersPage() {
   const user = await getCurrentUser();
@@ -21,41 +20,27 @@ export default async function SubscribersPage() {
   const subscribers = await prisma.newsletterSubscriber.findMany({
     orderBy: { createdAt: "desc" },
   });
-  const mailchimpOn = isMailchimpConfigured();
 
   await markSectionSeen(user.id, "subscribers");
 
   return (
     <AdminShell user={user} active="subscribers" badges={badges}>
       <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-10">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div>
-            <h1 className="font-headline text-ink text-3xl font-extrabold tracking-tight uppercase">
-              Newsletter Subscribers
-            </h1>
-            <p className="text-ink-muted mt-1 text-sm">
-              {subscribers.length.toLocaleString()}{" "}
-              {subscribers.length === 1 ? "person has" : "people have"} signed up for the KyabiseUG
-              newsletter.
-              {newSince > 0 && (
-                <>
-                  {" "}
-                  <strong className="text-brand">{newSince} new since you last looked.</strong>
-                </>
-              )}
-            </p>
-          </div>
-          {mailchimpOn ? (
-            <span className="bg-cat-sports/10 text-cat-sports flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold">
-              <CheckCircle2 className="h-3.5 w-3.5" />
-              Synced to Mailchimp
-            </span>
-          ) : (
-            <span className="bg-gold/20 text-gold-ink flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold">
-              <AlertTriangle className="h-3.5 w-3.5" />
-              Mailchimp not connected
-            </span>
-          )}
+        <div>
+          <h1 className="font-headline text-ink text-3xl font-extrabold tracking-tight uppercase">
+            Newsletter Subscribers
+          </h1>
+          <p className="text-ink-muted mt-1 text-sm">
+            {subscribers.length.toLocaleString()}{" "}
+            {subscribers.length === 1 ? "person has" : "people have"} signed up for the KyabiseUG
+            newsletter.
+            {newSince > 0 && (
+              <>
+                {" "}
+                <strong className="text-brand">{newSince} new since you last looked.</strong>
+              </>
+            )}
+          </p>
         </div>
 
         <div className="border-border bg-surface mt-8 overflow-x-auto rounded-xl border">

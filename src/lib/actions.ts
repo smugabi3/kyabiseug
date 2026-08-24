@@ -2,7 +2,6 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { addToMailchimp } from "@/lib/mailchimp";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -26,13 +25,6 @@ export async function subscribeNewsletter(
     });
   } catch {
     return { ok: false, message: "Something went wrong. Please try again." };
-  }
-
-  // Local record is the source of truth for the admin Subscribers page; Mailchimp
-  // sync is best-effort so a Mailchimp outage never blocks someone from subscribing.
-  const mc = await addToMailchimp(email);
-  if (!mc.ok) {
-    console.error("Mailchimp sync failed for", email, mc.error);
   }
 
   revalidatePath("/admin/subscribers");

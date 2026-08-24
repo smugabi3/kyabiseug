@@ -15,7 +15,7 @@ export default async function PrivacyPage() {
   await recordPageView("/privacy");
 
   return (
-    <LegalPage title="Privacy Policy" updated="20 August 2026">
+    <LegalPage title="Privacy Policy" updated="24 August 2026">
       <Section heading="Overview">
         <p>
           KyabiseUG (&ldquo;we&rdquo;, &ldquo;us&rdquo;) publishes news and related content at this
@@ -109,8 +109,8 @@ export default async function PrivacyPage() {
               <strong>Vercel Blob</strong> — storage for article images uploaded by our staff.
             </>,
             <>
-              <strong>Mailchimp</strong> — used to deliver the newsletter. Your email address is
-              shared with Mailchimp only if you subscribe.
+              <strong>Resend</strong> — used to deliver the newsletter. Your email address is shared
+              with Resend only if you subscribe, and only to send you an issue.
             </>,
           ]}
         />
