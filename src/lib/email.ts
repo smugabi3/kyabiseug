@@ -1,8 +1,12 @@
 import { Resend } from "resend";
 
-/** Sender address. Must be on a domain verified in Resend, or delivery is rejected. */
-export const NEWSLETTER_FROM =
-  process.env.NEWSLETTER_FROM ?? "KyabiseUG <newsletter@kyabiseuganda.com>";
+/**
+ * Sender address. Must be on a domain verified in Resend, or delivery is rejected.
+ * Matches CONTACT_EMAIL in newsletter.ts — the footer tells readers to reach the
+ * team at info@, so the newsletter should arrive from that same address rather
+ * than a different one nobody was told about.
+ */
+export const NEWSLETTER_FROM = process.env.NEWSLETTER_FROM ?? "KyabiseUG <info@kyabiseuganda.com>";
 
 export function isEmailConfigured() {
   return Boolean(process.env.RESEND_API_KEY);
