@@ -115,6 +115,23 @@ body {
   margin-bottom: 1.4em;
 }
 
+.prose-article figure {
+  margin: 2em 0;
+}
+
+.prose-article figure img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+.prose-article figcaption {
+  margin-top: 0.6em;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-ink-muted);
+}
+
 .prose-article p:first-of-type::first-letter {
   float: left;
   font-family: var(--font-headline);

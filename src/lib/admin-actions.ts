@@ -12,7 +12,7 @@ import { canManageAllArticles, canManageOwnArticles } from "@/lib/roles";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { slugify, toHtmlParagraphs } from "@/lib/content";
-import { uploadCoverImage } from "@/lib/upload";
+import { uploadCoverImage, uploadImage } from "@/lib/upload";
 
 /** Coarse gate: must be logged in at all. Returns the fresh user record. */
 async function requireUser() {
@@ -248,4 +248,18 @@ export async function togglePublishAction(id: string) {
   await prisma.article.update({ where: { id }, data: { published: !article.published } });
   revalidatePath("/admin");
   revalidatePath("/");
+}
+
+/** Uploads an image to be inserted inside an article body. */
+export async function uploadArticleImageAction(
+  formData: FormData
+): Promise<{ url?: string; error?: string }> {
+  const user = await requireUser();
+  if (!canManageOwnArticles(user.role)) return { error: "You don't have permission to do that." };
+
+  const file = formData.get("file");
+  if (!(file instanceof File) || file.size === 0) return { error: "Please choose an image." };
+
+  const result = await uploadImage(file, "article-body", "articles");
+  return "error" in result ? { error: result.error } : { url: result.url };
 }

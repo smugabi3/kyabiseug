@@ -1,6 +1,8 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useRef, useState } from "react";
+import { ImageIcon } from "lucide-react";
+import { uploadArticleImageAction } from "@/lib/admin-actions";
 import { CoverImageInput } from "@/components/admin/cover-image-input";
 
 type Category = { id: string; name: string };
@@ -38,6 +40,37 @@ export function ArticleForm({
   submitLabel: string;
 }) {
   const [state, formAction, pending] = useActionState(action, undefined);
+  const contentRef = useRef<HTMLTextAreaElement>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [caption, setCaption] = useState("");
+  const [uploading, setUploading] = useState(false);
+  const [imageError, setImageError] = useState<string | null>(null);
+
+  async function insertImage(file: File) {
+    setUploading(true);
+    setImageError(null);
+    const fd = new FormData();
+    fd.set("file", file);
+    const res: { url?: string; error?: string } = await uploadArticleImageAction(fd).catch(
+      () => ({ error: "Upload failed. Please try again." })
+    );
+    setUploading(false);
+    if (fileRef.current) fileRef.current.value = "";
+    if (!res.url) {
+      setImageError(res.error ?? "Upload failed.");
+      return;
+    }
+    const ta = contentRef.current;
+    if (!ta) return;
+    const marker = `![${caption.replace(/[\[\]\n]/g, " ").trim()}](${res.url})`;
+    const { selectionStart: start, selectionEnd: end, value } = ta;
+    const before = value.slice(0, start).replace(/\s+$/, "");
+    const after = value.slice(end).replace(/^\s+/, "");
+    // Images are their own paragraph, so surround the marker with blank lines.
+    ta.value = `${before}${before ? "\n\n" : ""}${marker}${after ? "\n\n" : ""}${after}`;
+    ta.focus();
+    setCaption("");
+  }
 
   const d: ArticleDefaults = {
     title: "",
@@ -81,6 +114,7 @@ export function ArticleForm({
 
       <Field label="Content" hint="Separate paragraphs with a blank line.">
         <textarea
+          ref={contentRef}
           name="content"
           required
           rows={12}
@@ -89,6 +123,44 @@ export function ArticleForm({
           placeholder="Write the full story here..."
         />
       </Field>
+
+      <div className="border-border bg-surface-alt space-y-2 rounded-lg border p-3">
+        <p className="text-ink-muted text-xs font-bold tracking-wide uppercase">
+          Insert an image into the article
+        </p>
+        <div className="flex flex-wrap items-center gap-2">
+          <input
+            value={caption}
+            onChange={(e) => setCaption(e.target.value)}
+            className="input min-w-0 flex-1"
+            placeholder="Caption (optional)"
+          />
+          <button
+            type="button"
+            disabled={uploading}
+            onClick={() => fileRef.current?.click()}
+            className="bg-brand font-headline hover:bg-brand-ink inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-bold tracking-wide text-white uppercase transition disabled:opacity-60"
+          >
+            <ImageIcon className="h-4 w-4" />
+            {uploading ? "Uploading..." : "Choose image"}
+          </button>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            hidden
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) void insertImage(f);
+            }}
+          />
+        </div>
+        <p className="text-ink-soft text-xs">
+          Placed where your cursor is in the Content box, as a line like{" "}
+          <code>![caption](url)</code>. Move or delete that line to reposition or remove the image.
+        </p>
+        {imageError && <p className="text-brand text-xs">{imageError}</p>}
+      </div>
 
       <div className="grid gap-6 sm:grid-cols-2">
         <Field label="Category">
