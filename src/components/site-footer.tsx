@@ -4,7 +4,14 @@ import { NewsletterForm } from "@/components/newsletter-form";
 import { getCategories } from "@/lib/data";
 import { SocialIcon, type SocialPlatform } from "@/components/social-icon";
 
-const SOCIALS: SocialPlatform[] = ["facebook", "twitter", "instagram", "youtube"];
+// Platforms without a URL yet render as inert "#" links.
+const SOCIALS: { platform: SocialPlatform; url?: string }[] = [
+  { platform: "facebook" },
+  { platform: "twitter", url: "https://x.com/kyabiseug?s=11&t=SDpl762wH4Oil5HdylBDNQ" },
+  { platform: "instagram", url: "https://www.instagram.com/kyabise_uganda?stkn=Z2pjY2xtOHIwYmpl" },
+  { platform: "youtube", url: "https://youtube.com/@kyabiseuganda?si=CQMe_55mFyuSftTQ" },
+  { platform: "tiktok", url: "https://www.tiktok.com/@kyabise_updates?_r=1&_t=ZS-9AAWIJlVqHC" },
+];
 
 export async function SiteFooter() {
   const categories = await getCategories();
@@ -20,10 +27,11 @@ export async function SiteFooter() {
             around the clock.
           </p>
           <div className="mt-5 flex items-center gap-3">
-            {SOCIALS.map((platform) => (
+            {SOCIALS.map(({ platform, url }) => (
               <a
                 key={platform}
-                href="#"
+                href={url ?? "#"}
+                {...(url && { target: "_blank", rel: "noopener noreferrer" })}
                 aria-label={platform}
                 className="border-border text-ink-muted hover:border-brand hover:text-brand flex h-9 w-9 items-center justify-center rounded-full border transition"
               >
