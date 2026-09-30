@@ -6,7 +6,7 @@ import { SocialIcon, type SocialPlatform } from "@/components/social-icon";
 
 // Platforms without a URL yet render as inert "#" links.
 const SOCIALS: { platform: SocialPlatform; url?: string }[] = [
-  { platform: "facebook" },
+  { platform: "facebook", url: "https://www.facebook.com/share/1LjJNbxGpw/?mibextid=wwXIfr" },
   { platform: "twitter", url: "https://x.com/kyabiseug?s=11&t=SDpl762wH4Oil5HdylBDNQ" },
   { platform: "instagram", url: "https://www.instagram.com/kyabise_uganda?stkn=Z2pjY2xtOHIwYmpl" },
   { platform: "youtube", url: "https://youtube.com/@kyabiseuganda?si=CQMe_55mFyuSftTQ" },
