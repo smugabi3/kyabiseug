@@ -69,9 +69,8 @@ export function renderNewsletterHtml({
 
 <tr><td style="padding:24px 32px;border-bottom:3px solid #d21034;">
 <a href="${esc(siteUrl)}" style="text-decoration:none;">
-<span style="font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:bold;color:#14130f;letter-spacing:-0.5px;">Kyabise</span><span style="font-family:Arial,Helvetica,sans-serif;font-size:22px;font-weight:bold;color:#ffffff;background:#d21034;padding:2px 6px;border-radius:4px;">UG</span>
+<img src="${esc(siteUrl)}/logo.png" alt="KyabiseUG — Uganda's Voice, The World's Story" width="220" style="display:block;width:220px;height:auto;border:0;" />
 </a>
-<div style="font-family:Arial,Helvetica,sans-serif;font-size:10px;letter-spacing:1.5px;color:#837f74;text-transform:uppercase;margin-top:6px;">Uganda's Voice &middot; The World's Story</div>
 </td></tr>
 
 <tr><td style="padding:32px 32px 8px 32px;">

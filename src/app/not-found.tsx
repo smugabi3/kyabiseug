@@ -12,7 +12,7 @@ import { Logo } from "@/components/logo";
 export default function NotFound() {
   return (
     <div className="bg-surface flex min-h-screen flex-col items-center justify-center px-6 text-center">
-      <Logo />
+      <Logo className="h-16" />
 
       <p className="font-headline text-brand mt-10 text-6xl font-black tracking-tight sm:text-7xl">
         404

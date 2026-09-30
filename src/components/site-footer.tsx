@@ -13,7 +13,7 @@ export async function SiteFooter() {
     <footer className="border-border bg-surface-alt border-t">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.3fr_1fr_1fr_1.2fr] lg:px-10">
         <div>
-          <Logo tagline />
+          <Logo className="h-14" />
           <p className="text-ink-muted mt-4 max-w-xs text-sm leading-relaxed">
             KyabiseUG is Uganda&apos;s independent home for local and international news, sports,
             health, technology, gospel and entertainment — reported with accuracy and delivered

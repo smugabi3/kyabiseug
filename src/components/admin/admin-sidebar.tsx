@@ -142,10 +142,7 @@ export function AdminSidebar({
   const panel = (
     <div className="bg-sidebar flex h-full w-64 flex-col">
       <div className="border-sidebar-hover flex items-center justify-between border-b px-5 py-4">
-        {/* The logo's wordmark is dark by default, so it needs inverting here. */}
-        <div className="[&_span:first-child]:text-white">
-          <Logo />
-        </div>
+        <Logo plate="always" className="h-9" />
         <button
           type="button"
           aria-label="Close menu"
@@ -217,9 +214,7 @@ export function AdminSidebar({
         >
           <Menu className="h-5 w-5" />
         </button>
-        <div className="[&_span:first-child]:text-white">
-          <Logo />
-        </div>
+        <Logo plate="always" className="h-9" />
       </div>
 
       {open && (

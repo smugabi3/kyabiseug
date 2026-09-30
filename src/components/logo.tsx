@@ -1,20 +1,35 @@
+import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
-export function Logo({ className, tagline = false }: { className?: string; tagline?: boolean }) {
+/**
+ * The wordmark is dark on a transparent background, so it disappears on dark
+ * surfaces. `plate` sits it on a white chip there (always, for the admin
+ * sidebar; only in dark mode elsewhere).
+ */
+export function Logo({
+  className,
+  plate = "dark",
+}: {
+  className?: string;
+  plate?: "dark" | "always";
+}) {
   return (
-    <Link href="/" className={cn("group inline-flex flex-col leading-none", className)}>
-      <span className="font-headline inline-flex items-center gap-0.5">
-        <span className="text-ink text-[1.6rem] font-extrabold tracking-tight">Kyabise</span>
-        <span className="bg-brand rounded-[4px] px-1.5 py-0.5 text-[1.4rem] font-black tracking-tight text-white">
-          UG
-        </span>
-      </span>
-      {tagline && (
-        <span className="text-ink-soft mt-0.5 text-[0.65rem] font-semibold tracking-[0.18em] uppercase">
-          Uganda&apos;s Voice &middot; The World&apos;s Story
-        </span>
+    <Link
+      href="/"
+      className={cn(
+        "inline-block rounded-md leading-none",
+        plate === "always" ? "bg-white px-2 py-1" : "dark:bg-white dark:px-2 dark:py-1",
       )}
+    >
+      <Image
+        src="/logo.png"
+        alt="KyabiseUG — Uganda's Voice, The World's Story"
+        width={1200}
+        height={387}
+        priority
+        className={cn("h-11 w-auto", className)}
+      />
     </Link>
   );
 }

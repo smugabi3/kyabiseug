@@ -27,7 +27,7 @@ export async function SiteHeader() {
       <div className="flex items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-10">
         <div className="flex items-center gap-3">
           <MobileNav categories={categories} />
-          <Logo tagline />
+          <Logo className="h-10 sm:h-12" />
         </div>
         <div className="hidden max-w-sm flex-1 md:block">
           <SearchBox />
